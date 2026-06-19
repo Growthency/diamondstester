@@ -13,6 +13,7 @@ import { Reveal } from '@/components/motion/Reveal'
 import { ArticleBody } from '@/components/blog/ArticleBody'
 import { TableOfContents } from '@/components/blog/TableOfContents'
 import { ShareRow } from '@/components/blog/ShareRow'
+import { SaveArticleButton } from '@/components/blog/SaveArticleButton'
 import { RelatedPosts } from '@/components/blog/RelatedPosts'
 
 export async function generateStaticParams() {
@@ -189,9 +190,14 @@ export default async function ArticlePage({ params }: { params: { slug: string }
                 </div>
               )}
 
-              {/* Share */}
-              <div className="mt-8 border-t border-border pt-8">
+              {/* Share + Save */}
+              <div className="mt-8 flex flex-wrap items-center justify-between gap-4 border-t border-border pt-8">
                 <ShareRow slug={post.slug} title={post.title} />
+                <SaveArticleButton
+                  slug={post.slug}
+                  title={post.title}
+                  category={post.category}
+                />
               </div>
 
               {/* Author bio */}

@@ -2,16 +2,25 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Menu, X } from 'lucide-react'
+import { Menu, X, LayoutDashboard, LogIn } from 'lucide-react'
 import { Logo } from '@/components/brand/Logo'
 import { Button } from '@/components/ui/button'
+import { createClient } from '@/lib/supabase/client'
 import { site } from '@/lib/site'
 import { cn } from '@/lib/utils'
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
+  const [signedIn, setSignedIn] = useState(false)
   const pathname = usePathname()
+
+  useEffect(() => {
+    const supabase = createClient()
+    supabase.auth.getUser().then(({ data }: any) => setSignedIn(!!data?.user))
+    const { data } = supabase.auth.onAuthStateChange((_e: any, session: any) => setSignedIn(!!session?.user))
+    return () => data?.subscription?.unsubscribe?.()
+  }, [])
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 16)
@@ -60,9 +69,15 @@ export function Navbar() {
         </div>
 
         <div className="hidden items-center gap-2 lg:flex">
-          <Button asChild variant="ghost" size="sm">
-            <Link href="/contact">Talk to an expert</Link>
-          </Button>
+          {signedIn ? (
+            <Button asChild variant="ghost" size="sm">
+              <Link href="/dashboard"><LayoutDashboard className="h-4 w-4" /> Dashboard</Link>
+            </Button>
+          ) : (
+            <Button asChild variant="ghost" size="sm">
+              <Link href="/login"><LogIn className="h-4 w-4" /> Sign in</Link>
+            </Button>
+          )}
           <Button asChild size="sm">
             <Link href="/#tester">Test my diamond</Link>
           </Button>
@@ -92,7 +107,7 @@ export function Navbar() {
             ))}
             <div className="mt-3 grid grid-cols-2 gap-2">
               <Button asChild variant="outline" size="sm">
-                <Link href="/contact">Contact</Link>
+                <Link href={signedIn ? '/dashboard' : '/login'}>{signedIn ? 'Dashboard' : 'Sign in'}</Link>
               </Button>
               <Button asChild size="sm">
                 <Link href="/#tester">Test</Link>

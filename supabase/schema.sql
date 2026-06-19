@@ -138,6 +138,49 @@ create table if not exists public.analyses (
 create index if not exists idx_analyses_created on public.analyses (created_at desc);
 create index if not exists idx_analyses_hash    on public.analyses (image_hash);
 
+-- ── USER ACCOUNTS (Supabase Auth → dashboard) ────────────────────────────────
+create table if not exists public.profiles (
+  id          uuid primary key references auth.users(id) on delete cascade,
+  email       text,
+  full_name   text,
+  avatar_url  text,
+  created_at  timestamptz not null default now(),
+  updated_at  timestamptz not null default now()
+);
+drop trigger if exists trg_profiles_updated on public.profiles;
+create trigger trg_profiles_updated before update on public.profiles
+  for each row execute function public.set_updated_at();
+
+-- auto-create a profile row when a new auth user signs up
+create or replace function public.handle_new_user()
+returns trigger language plpgsql security definer set search_path = public as $$
+begin
+  insert into public.profiles (id, email, full_name)
+  values (new.id, new.email, coalesce(new.raw_user_meta_data->>'full_name', ''))
+  on conflict (id) do nothing;
+  return new;
+end; $$;
+drop trigger if exists on_auth_user_created on auth.users;
+create trigger on_auth_user_created
+  after insert on auth.users
+  for each row execute function public.handle_new_user();
+
+-- saved / bookmarked articles
+create table if not exists public.saved_articles (
+  id          bigserial primary key,
+  user_id     uuid not null references auth.users(id) on delete cascade,
+  slug        text not null,
+  title       text,
+  category    text,
+  created_at  timestamptz not null default now(),
+  unique (user_id, slug)
+);
+create index if not exists idx_saved_user on public.saved_articles (user_id, created_at desc);
+
+-- link AI scans to a user (nullable: guests can still scan anonymously)
+alter table public.analyses add column if not exists user_id uuid references auth.users(id) on delete set null;
+create index if not exists idx_analyses_user on public.analyses (user_id, created_at desc);
+
 -- ── SECURE VAULT (AES-256-GCM, service-role only) ────────────────────────────
 create table if not exists public.vault_credentials (
   id                 bigserial primary key,
@@ -168,7 +211,27 @@ alter table public.subscribers         enable row level security;
 alter table public.site_settings       enable row level security;
 alter table public.page_views          enable row level security;
 alter table public.analyses            enable row level security;
+alter table public.profiles            enable row level security;
+alter table public.saved_articles      enable row level security;
 alter table public.vault_credentials   enable row level security;
+
+-- users manage only their OWN profile
+drop policy if exists "own profile read"   on public.profiles;
+drop policy if exists "own profile write"  on public.profiles;
+create policy "own profile read"  on public.profiles for select using (auth.uid() = id);
+create policy "own profile write" on public.profiles for update using (auth.uid() = id) with check (auth.uid() = id);
+
+-- users manage only their OWN saved articles
+drop policy if exists "own saved read"   on public.saved_articles;
+drop policy if exists "own saved insert" on public.saved_articles;
+drop policy if exists "own saved delete" on public.saved_articles;
+create policy "own saved read"   on public.saved_articles for select using (auth.uid() = user_id);
+create policy "own saved insert" on public.saved_articles for insert with check (auth.uid() = user_id);
+create policy "own saved delete" on public.saved_articles for delete using (auth.uid() = user_id);
+
+-- users can read only their OWN scans (writes happen via the service role API)
+drop policy if exists "own analyses read" on public.analyses;
+create policy "own analyses read" on public.analyses for select using (auth.uid() = user_id);
 
 -- public can read published content
 drop policy if exists "read published posts" on public.blog_posts;

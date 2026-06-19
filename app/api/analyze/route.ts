@@ -72,6 +72,7 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json().catch(() => null)
     const images: string[] = Array.isArray(body?.images) ? body.images.slice(0, 3) : []
+    const userId: string | null = typeof body?.userId === 'string' && body.userId ? body.userId : null
     if (!images.length) {
       return NextResponse.json({ ok: false, error: 'Please add at least one photo.' }, { status: 400 })
     }
@@ -186,6 +187,7 @@ export async function POST(request: NextRequest) {
           score: Number.isFinite(result?.authenticityScore) ? Math.round(result.authenticityScore) : null,
           result,
           ip_address: ip,
+          user_id: userId,
         })
       } catch {
         /* storage/db best-effort — never block the user's result */

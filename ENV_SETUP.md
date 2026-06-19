@@ -98,6 +98,33 @@ email + password screen — no public sign-up.
 
 ---
 
+## 3b. User accounts & dashboard
+
+The public **user dashboard** (sign in / sign up → scan history, saved articles,
+settings) runs on **Supabase Auth** — separate from the admin portal.
+
+1. In Supabase → **Authentication → Providers → Email**: make sure **Email** is
+   enabled. For quick testing, turn **"Confirm email" OFF** (users log in
+   immediately); leave it ON for production and users confirm via email link.
+2. The database trigger in `schema.sql` auto-creates a `profiles` row on signup.
+3. Create a ready-made demo account (optional):
+   ```bash
+   node scripts/create-demo-user.mjs
+   ```
+
+### Default logins (change before launch!)
+
+| Area | URL | Email | Password |
+|---|---|---|---|
+| **Admin dashboard** | `/admin` | `admin@caratiq.com` | `caratiq-admin` |
+| **User dashboard (demo)** | `/login` | `demo@caratiq.com` | `demo123456` |
+
+- Admin creds come from `ADMIN_EMAIL` / `ADMIN_PASSWORD` in `.env.local`.
+- The demo user is created by `scripts/create-demo-user.mjs` (needs Supabase keys).
+  Anyone can also self-register at `/signup`.
+
+---
+
 ## 4. Public site settings
 
 | Variable | What it is |

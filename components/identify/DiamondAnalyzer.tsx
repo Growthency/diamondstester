@@ -1,7 +1,8 @@
 'use client'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { AlertTriangle, Camera, Sparkles, Scan, Gem } from 'lucide-react'
+import { createClient } from '@/lib/supabase/client'
 import { cn } from '@/lib/utils'
 
 /* Scanning steps shown during analysis */
@@ -73,6 +74,7 @@ function resizeToDataUrl(file: File, max = 1100): Promise<string> {
 
 export function DiamondAnalyzer() {
   const router = useRouter()
+  const [userId, setUserId] = useState<string | null>(null)
   const [files, setFiles] = useState<File[]>([])
   const [previews, setPreviews] = useState<string[]>([])
   const [analyzing, setAnalyzing] = useState(false)
@@ -83,6 +85,11 @@ export function DiamondAnalyzer() {
   const inputRef = useRef<HTMLInputElement>(null)
   const stepTimer = useRef<ReturnType<typeof setInterval> | null>(null)
   const progTimer = useRef<ReturnType<typeof setInterval> | null>(null)
+
+  useEffect(() => {
+    const supabase = createClient()
+    supabase.auth.getUser().then(({ data }: any) => setUserId(data?.user?.id ?? null))
+  }, [])
 
   function addFiles(list: FileList | File[]) {
     const incoming = Array.from(list).filter((f) => f.type.startsWith('image/'))
@@ -124,7 +131,7 @@ export function DiamondAnalyzer() {
       const res = await fetch('/api/analyze', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ images }),
+        body: JSON.stringify({ images, userId }),
       })
       const data = await res.json()
       stopScan()
