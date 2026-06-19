@@ -1,0 +1,238 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   CaratIQ design system — every token derives from the logo:
+   ink (obsidian) + brilliant gradient (cyan → indigo → violet)
+   + platinum neutral. Dark-first, luxe, minimalist.
+   ============================================================ */
+@layer base {
+  :root {
+    /* Brand hues */
+    --ink: 221 48% 5%;
+    --ink-soft: 222 41% 9%;
+    --ink-elevated: 222 34% 13%;
+    --brilliant-cyan: 189 100% 61%;
+    --brilliant-indigo: 239 84% 67%;
+    --brilliant-violet: 271 91% 65%;
+    --platinum: 216 47% 94%;
+    --platinum-muted: 216 22% 66%;
+
+    /* Semantic (dark is the default theme) */
+    --background: 221 48% 5%;
+    --foreground: 216 47% 94%;
+    --card: 222 38% 8%;
+    --card-foreground: 216 47% 94%;
+    --primary: 239 84% 67%;
+    --primary-foreground: 222 48% 6%;
+    --secondary: 222 30% 14%;
+    --secondary-foreground: 216 47% 94%;
+    --muted: 222 28% 13%;
+    --muted-foreground: 216 22% 66%;
+    --accent: 189 100% 61%;
+    --accent-foreground: 222 48% 6%;
+    --destructive: 0 72% 58%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 217 30% 17%;
+    --input: 217 30% 17%;
+    --ring: 189 100% 61%;
+    --radius: 1rem;
+
+    --font-sans: 'Inter', system-ui, sans-serif;
+    --font-display: 'Sora', var(--font-sans);
+  }
+
+  /* Optional light surface (used by a few inner editor screens) */
+  .light {
+    --background: 210 40% 99%;
+    --foreground: 222 47% 11%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+    --primary: 239 84% 60%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 216 33% 95%;
+    --secondary-foreground: 222 47% 11%;
+    --muted: 216 33% 95%;
+    --muted-foreground: 216 16% 42%;
+    --accent: 189 94% 43%;
+    --accent-foreground: 0 0% 100%;
+    --border: 216 28% 88%;
+    --input: 216 28% 88%;
+    --ring: 239 84% 60%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-feature-settings: 'ss01', 'cv01', 'cv11';
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background: hsl(var(--brilliant-cyan) / 0.3);
+    color: hsl(var(--platinum));
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-display tracking-tight;
+  }
+
+  /* Custom scrollbar — brilliant gradient, mirrors the top progress bar */
+  ::-webkit-scrollbar {
+    width: 11px;
+    height: 11px;
+  }
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--ink-soft));
+  }
+  ::-webkit-scrollbar-thumb {
+    border-radius: 999px;
+    border: 2px solid hsl(var(--ink-soft));
+    background: linear-gradient(
+      hsl(var(--brilliant-cyan)),
+      hsl(var(--brilliant-indigo)) 55%,
+      hsl(var(--brilliant-violet))
+    );
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(
+      hsl(var(--brilliant-cyan)),
+      hsl(var(--brilliant-violet))
+    );
+  }
+  /* Firefox */
+  html {
+    scrollbar-color: hsl(var(--brilliant-indigo)) hsl(var(--ink-soft));
+    scrollbar-width: thin;
+  }
+}
+
+@layer components {
+  /* Gradient text — the brilliant identity */
+  .text-gradient {
+    @apply bg-brilliant bg-clip-text text-transparent;
+    background-size: 200% auto;
+  }
+  .text-shimmer {
+    background: linear-gradient(
+      110deg,
+      hsl(var(--platinum)) 35%,
+      hsl(var(--brilliant-cyan)) 50%,
+      hsl(var(--brilliant-violet)) 60%,
+      hsl(var(--platinum)) 75%
+    );
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    @apply animate-shimmer;
+  }
+
+  /* Glassmorphism surface */
+  .glass {
+    background: hsl(var(--ink-soft) / 0.6);
+    backdrop-filter: blur(16px) saturate(140%);
+    -webkit-backdrop-filter: blur(16px) saturate(140%);
+    border: 1px solid hsl(0 0% 100% / 0.07);
+  }
+
+  /* Gradient ring / hairline border card */
+  .card-luxe {
+    position: relative;
+    background:
+      linear-gradient(hsl(var(--card)), hsl(var(--card))) padding-box,
+      linear-gradient(135deg, hsl(var(--brilliant-cyan) / 0.5), transparent 40%, hsl(var(--brilliant-violet) / 0.4)) border-box;
+    border: 1px solid transparent;
+  }
+
+  /* Aurora blobs that drift with parallax */
+  .aurora {
+    position: absolute;
+    filter: blur(70px);
+    opacity: 0.5;
+    border-radius: 50%;
+    pointer-events: none;
+    will-change: transform;
+  }
+
+  /* Sheen sweep across buttons / chips */
+  .sheen::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      hsl(0 0% 100% / 0.18),
+      transparent
+    );
+    transform: translateX(-120%) skewX(-20deg);
+    pointer-events: none;
+  }
+  .sheen:hover::after {
+    @apply animate-sheen;
+  }
+
+  /* Subtle film grain / noise overlay */
+  .grain::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .container-wide {
+    @apply container max-w-7xl;
+  }
+
+  .section {
+    @apply relative py-24 sm:py-32;
+  }
+
+  .eyebrow {
+    @apply inline-flex items-center gap-2 rounded-full border border-border bg-secondary/40 px-3.5 py-1.5 text-xs font-medium uppercase tracking-[0.2em] text-platinum-muted;
+  }
+}
+
+@layer utilities {
+  .mask-fade-b {
+    -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent);
+    mask-image: linear-gradient(to bottom, black 70%, transparent);
+  }
+  .[perspective\:1200px] {
+    perspective: 1200px;
+  }
+  .bg-grid {
+    background-image:
+      linear-gradient(hsl(var(--border) / 0.5) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--border) / 0.5) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+  .bg-dot {
+    background-image: radial-gradient(hsl(var(--border)) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
