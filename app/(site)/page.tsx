@@ -13,19 +13,23 @@ import {
 } from '@/components/ui/accordion'
 import {
   services, process, differentiators, fourCs, realVsFake, faqs, trustLogos,
+  photoTips, comparison, limits,
 } from '@/lib/content/site-data'
 import { getAllPosts } from '@/lib/blog'
+import { coverFor } from '@/lib/content/covers'
 import { formatDate } from '@/lib/utils'
 
 export default async function HomePage() {
-  const posts = (await getAllPosts()).slice(0, 3)
+  const allPosts = await getAllPosts()
+  const posts = allPosts.slice(0, 3)
+  const guides = allPosts.slice(0, 8)
 
   return (
     <>
       <Hero />
 
       {/* Instant AI diamond tester — the primary action, immediately under the hero */}
-      <section id="identifier" className="relative scroll-mt-24 pb-8 pt-4 sm:pb-12">
+      <section id="tester" className="relative scroll-mt-28 pb-8 pt-4 sm:pb-12">
         <div className="container-wide">
           <Reveal className="mx-auto mb-10 max-w-2xl text-center">
             <span className="eyebrow"><span className="h-1.5 w-1.5 animate-pulse rounded-full bg-brilliant-cyan" /> Free · no signup</span>
@@ -158,8 +162,41 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Real vs Fake */}
+      {/* Best photos for an accurate test */}
       <section className="section bg-ink-soft/30">
+        <div className="container-wide grid items-center gap-12 lg:grid-cols-2">
+          <Reveal>
+            <img src="/images/cuts.webp" alt="Diamond cut shapes and facets" loading="lazy" className="w-full rounded-2xl border border-border" width={800} height={600} />
+          </Reveal>
+          <div>
+            <Reveal>
+              <span className="eyebrow">Best photos = best verdict</span>
+              <h2 className="mt-5 font-display text-4xl font-bold sm:text-5xl">
+                Four tips for a <span className="text-gradient">sharper read</span>
+              </h2>
+              <p className="mt-4 text-muted-foreground">
+                The AI is only as good as your photos. A minute of care here makes the difference between a confident verdict and an inconclusive one.
+              </p>
+            </Reveal>
+            <Stagger className="mt-8 grid gap-4 sm:grid-cols-2">
+              {photoTips.map((t) => (
+                <Reveal key={t.title}>
+                  <div className="card-luxe h-full rounded-xl p-5">
+                    <div className="grid h-10 w-10 place-items-center rounded-lg bg-brilliant-soft text-brilliant-cyan">
+                      <Icon name={t.icon} className="h-5 w-5" />
+                    </div>
+                    <h3 className="mt-3 font-display font-semibold">{t.title}</h3>
+                    <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{t.body}</p>
+                  </div>
+                </Reveal>
+              ))}
+            </Stagger>
+          </div>
+        </div>
+      </section>
+
+      {/* Real vs Fake */}
+      <section className="section">
         <div className="container-wide grid items-center gap-12 lg:grid-cols-2">
           <Reveal>
             <span className="eyebrow">Real vs. fake</span>
@@ -216,6 +253,86 @@ export default async function HomePage() {
         </div>
       </section>
 
+      <SectionDivider flip />
+
+      {/* Explore Diamond Guides — the article library, like a knowledge hub */}
+      <section className="section bg-ink-soft/30">
+        <div className="container-wide">
+          <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
+            <Reveal>
+              <span className="eyebrow">Diamond knowledge</span>
+              <h2 className="mt-5 font-display text-4xl font-bold sm:text-5xl">
+                Explore diamond <span className="text-gradient">guides</span>
+              </h2>
+              <p className="mt-4 max-w-xl text-muted-foreground">
+                Real, gemologist-written guides on testing, the 4Cs, cuts, certificates, pricing and care — everything you need before you buy, sell or insure.
+              </p>
+            </Reveal>
+            <Button asChild variant="outline" className="shrink-0">
+              <Link href="/blog">Browse all articles <ArrowRight className="h-4 w-4" /></Link>
+            </Button>
+          </div>
+
+          <Stagger className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {guides.map((post) => (
+              <Reveal key={post.slug}>
+                <Link href={`/blog/${post.slug}`} className="card-luxe group flex h-full flex-col overflow-hidden rounded-2xl">
+                  <div className="relative aspect-[4/3] overflow-hidden">
+                    <img src={coverFor(post)} alt={post.title} loading="lazy" width={800} height={600} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                    <span className="absolute left-3 top-3"><Badge variant="solid">{post.category}</Badge></span>
+                  </div>
+                  <div className="flex flex-1 flex-col p-5">
+                    <h3 className="font-display text-base font-semibold leading-snug transition-colors group-hover:text-brilliant-cyan">{post.title}</h3>
+                    <p className="mt-2 line-clamp-2 text-sm text-muted-foreground">{post.excerpt}</p>
+                    <p className="mt-auto pt-4 text-xs text-muted-foreground">{post.read_minutes} min read</p>
+                  </div>
+                </Link>
+              </Reveal>
+            ))}
+          </Stagger>
+        </div>
+      </section>
+
+      {/* Why choose CaratIQ — comparison table */}
+      <section className="section">
+        <div className="container-wide">
+          <Reveal className="mx-auto max-w-2xl text-center">
+            <span className="eyebrow">Why choose CaratIQ</span>
+            <h2 className="mt-5 font-display text-4xl font-bold sm:text-5xl">
+              The clearer way to <span className="text-gradient">know for sure</span>
+            </h2>
+          </Reveal>
+          <Reveal className="mt-12 overflow-x-auto">
+            <table className="w-full min-w-[680px] border-collapse text-sm">
+              <thead>
+                <tr>
+                  <th className="p-4 text-left font-medium text-muted-foreground"></th>
+                  {comparison.columns.map((c, i) => (
+                    <th key={c} className={`p-4 text-center font-display font-semibold ${i === 0 ? 'rounded-t-xl bg-brilliant-soft text-brilliant-cyan' : 'text-platinum-muted'}`}>{c}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {comparison.rows.map((row) => (
+                  <tr key={row.feature} className="border-t border-border">
+                    <td className="p-4 font-medium text-platinum">{row.feature}</td>
+                    {row.values.map((v, i) => (
+                      <td key={i} className={`p-4 text-center ${i === 0 ? 'bg-brilliant-soft/40' : ''}`}>
+                        {v === 'yes' ? <Check className="mx-auto h-5 w-5 text-emerald-400" />
+                          : v === 'no' ? <span className="text-red-400/70">—</span>
+                          : v === 'maybe' ? <span className="text-amber-400">~</span>
+                          : v === 'paid' ? <span className="text-amber-400">£££</span>
+                          : <span className="text-platinum-muted">{v}</span>}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </Reveal>
+        </div>
+      </section>
+
       {/* Testimonials */}
       <section className="section bg-ink-soft/30">
         <Reveal className="container-wide mb-12 text-center">
@@ -243,10 +360,8 @@ export default async function HomePage() {
             {posts.map((post) => (
               <Reveal key={post.slug}>
                 <Link href={`/blog/${post.slug}`} className="card-luxe group block h-full overflow-hidden rounded-2xl">
-                  <div className="relative aspect-[16/10] overflow-hidden bg-brilliant-soft">
-                    <div className="absolute inset-0 grid place-items-center bg-[radial-gradient(circle_at_30%_20%,hsl(var(--brilliant-indigo)/0.5),transparent_60%)]">
-                      <Icon name="Gem" className="h-12 w-12 text-brilliant-cyan/70 transition-transform duration-500 group-hover:scale-110" />
-                    </div>
+                  <div className="relative aspect-[16/10] overflow-hidden">
+                    <img src={coverFor(post)} alt={post.title} loading="lazy" width={800} height={600} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
                   </div>
                   <div className="p-6">
                     <Badge variant="muted">{post.category}</Badge>
@@ -258,6 +373,39 @@ export default async function HomePage() {
               </Reveal>
             ))}
           </Stagger>
+        </div>
+      </section>
+
+      {/* Honest limits of a photo test */}
+      <section className="section">
+        <div className="container-wide grid items-center gap-12 lg:grid-cols-[1fr_1.1fr]">
+          <Reveal>
+            <img src="/images/certificate.webp" alt="Diamond grading certificate" loading="lazy" width={800} height={600} className="w-full rounded-2xl border border-border" />
+          </Reveal>
+          <div>
+            <Reveal>
+              <span className="eyebrow">Honest about the limits</span>
+              <h2 className="mt-5 font-display text-4xl font-bold sm:text-5xl">
+                A photo screen is a <span className="text-gradient">guide, not gospel</span>
+              </h2>
+              <p className="mt-4 text-muted-foreground">
+                We’d rather tell you the truth than oversell a verdict. Here’s exactly where an instant photo test stops — and why a lab test takes over.
+              </p>
+            </Reveal>
+            <Stagger className="mt-7 space-y-3">
+              {limits.map((l, i) => (
+                <Reveal key={i}>
+                  <div className="flex items-start gap-3 rounded-xl border border-border bg-secondary/20 p-4">
+                    <span className="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-brilliant-soft text-xs font-bold text-brilliant-cyan">{i + 1}</span>
+                    <p className="text-sm leading-relaxed text-platinum-muted">{l}</p>
+                  </div>
+                </Reveal>
+              ))}
+            </Stagger>
+            <Button asChild className="mt-7">
+              <Link href="/verify">Get a definitive lab test <ArrowRight className="h-4 w-4" /></Link>
+            </Button>
+          </div>
         </div>
       </section>
 

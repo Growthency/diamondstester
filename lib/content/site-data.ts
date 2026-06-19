@@ -205,3 +205,46 @@ export const faqs = [
 ]
 
 export const trustLogos = ['GIA-benchmarked', 'IGI reference', 'Insured by Lloyd’s', 'Hatton Garden', 'Antwerp partners']
+
+export const photoTips = [
+  {
+    title: 'Light it well',
+    body: 'Shoot in bright, indirect daylight. Avoid hard flash — it blows out the brilliance and fire we read.',
+    icon: 'Sparkles',
+  },
+  {
+    title: 'Clean it first',
+    body: 'A quick wipe removes skin oil and dust that dull sparkle and hide inclusions from the camera.',
+    icon: 'ShieldCheck',
+  },
+  {
+    title: 'Capture 3 angles',
+    body: 'Top (table down), side profile, and straight through the table. More angles, sharper verdict.',
+    icon: 'Camera',
+  },
+  {
+    title: 'Get close & steady',
+    body: 'Fill the frame, tap to focus, keep a plain dark background. Macro mode if your phone has it.',
+    icon: 'ScanLine',
+  },
+]
+
+export const comparison = {
+  columns: ['CaratIQ', 'High-street jeweller', '$20 tester pen', 'Guesswork'],
+  rows: [
+    { feature: 'Instant photo verdict', values: ['yes', 'no', 'no', 'no'] },
+    { feature: 'Catches moissanite', values: ['yes', 'maybe', 'no', 'no'] },
+    { feature: 'Natural vs. lab-grown call', values: ['yes', 'paid', 'no', 'no'] },
+    { feature: 'Insurance-ready certificate', values: ['yes', 'yes', 'no', 'no'] },
+    { feature: 'No sales pressure / unbiased', values: ['yes', 'no', 'yes', 'yes'] },
+    { feature: 'Cost to start', values: ['Free', 'Appointment', '~$20', 'Free'] },
+    { feature: 'Time to an answer', values: ['< 1 min', 'Days–weeks', 'Seconds', '—'] },
+  ] as { feature: string; values: string[] }[],
+}
+
+export const limits = [
+  'A photo can flag simulants, but can’t separate a natural diamond from a lab-grown one — that needs spectroscopy.',
+  'Lighting and image quality change what the camera sees, so confidence varies with your photos.',
+  'A tight setting can hide the girdle, culet and inclusions we rely on for the closest read.',
+  'For insurance, resale or a legal record, always confirm a photo screen with an instrument-based lab test.',
+]

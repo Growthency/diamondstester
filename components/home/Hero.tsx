@@ -51,7 +51,7 @@ export function Hero() {
             className="mt-9 flex flex-col gap-3 sm:flex-row"
           >
             <Button asChild size="lg" className="sheen">
-              <Link href="/identify">
+              <Link href="/#tester">
                 Test my diamond free <ArrowRight className="h-4 w-4" />
               </Link>
             </Button>

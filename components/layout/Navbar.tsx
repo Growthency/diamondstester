@@ -64,7 +64,7 @@ export function Navbar() {
             <Link href="/contact">Talk to an expert</Link>
           </Button>
           <Button asChild size="sm">
-            <Link href="/identify">Test my diamond</Link>
+            <Link href="/#tester">Test my diamond</Link>
           </Button>
         </div>
 
@@ -95,7 +95,7 @@ export function Navbar() {
                 <Link href="/contact">Contact</Link>
               </Button>
               <Button asChild size="sm">
-                <Link href="/identify">Test</Link>
+                <Link href="/#tester">Test</Link>
               </Button>
             </div>
           </div>

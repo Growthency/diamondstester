@@ -1,7 +1,10 @@
 import { createClient, hasSupabaseConfig } from '@/lib/supabase/server'
 import { seedPosts } from '@/lib/content/posts'
+import { extraPosts } from '@/lib/content/posts-extra'
 import type { BlogPost } from '@/lib/types'
 import { readingTime } from '@/lib/utils'
+
+const allSeed: BlogPost[] = [...seedPosts, ...extraPosts]
 
 function normalize(row: any): BlogPost {
   return {
@@ -43,7 +46,7 @@ export async function getAllPosts(): Promise<BlogPost[]> {
       /* fall through to seed */
     }
   }
-  return seedPosts
+  return allSeed
     .filter((p) => p.status === 'published')
     .sort((a, b) => +new Date(b.published_at) - +new Date(a.published_at))
 }
@@ -58,7 +61,7 @@ export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
       /* fall through */
     }
   }
-  return seedPosts.find((p) => p.slug === slug) ?? null
+  return allSeed.find((p) => p.slug === slug) ?? null
 }
 
 export async function getFeaturedPost(): Promise<BlogPost | null> {

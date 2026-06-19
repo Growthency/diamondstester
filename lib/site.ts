@@ -32,7 +32,7 @@ export const site = {
   },
 
   nav: [
-    { label: 'Test a Diamond', href: '/identify' },
+    { label: 'Test a Diamond', href: '/#tester' },
     { label: 'How it works', href: '/how-it-works' },
     { label: 'Services', href: '/services' },
     { label: 'Blog', href: '/blog' },
