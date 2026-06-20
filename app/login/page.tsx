@@ -36,11 +36,14 @@ function LoginForm() {
 
       if (signInError || !data?.session) {
         const msg = signInError?.message ?? 'Invalid email or password.'
-        setError(
-          /not confirmed/i.test(msg)
-            ? 'Your email isn’t confirmed yet. Open the confirmation link we emailed you, then sign in.'
-            : msg,
-        )
+        let friendly = msg
+        if (/disabled/i.test(msg)) {
+          friendly =
+            'Email sign-in is turned off in Supabase. Site owner: enable it in Authentication → Providers → Email (and turn “Confirm email” off).'
+        } else if (/not confirmed/i.test(msg)) {
+          friendly = 'Your email isn’t confirmed yet. Open the confirmation link we emailed you, then sign in.'
+        }
+        setError(friendly)
         return
       }
 
@@ -135,6 +138,12 @@ function LoginForm() {
           className="inline-flex items-center gap-1.5 text-xs text-muted-foreground transition-colors hover:text-platinum"
         >
           <ArrowLeft className="h-3.5 w-3.5" /> Back to diamondstester.com
+        </Link>
+        <Link
+          href="/admin"
+          className="text-xs text-muted-foreground/70 transition-colors hover:text-brilliant-cyan"
+        >
+          Site administrator? Sign in at /admin
         </Link>
       </div>
     </div>
