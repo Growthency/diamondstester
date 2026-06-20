@@ -1,18 +1,20 @@
-import type { Metadata } from 'next'
 import Link from 'next/link'
 import { Reveal } from '@/components/motion/Reveal'
 import { site } from '@/lib/site'
+import { pageMeta, breadcrumbLd } from '@/lib/seo'
+import { JsonLd } from '@/components/seo/JsonLd'
 
-export const metadata: Metadata = {
-  title: 'Terms of Service',
+export const metadata = pageMeta({
+  title: 'Terms of Service — Diamonds Tester',
   description:
-    'The terms governing your use of Diamonds Tester’s diamond testing and verification services, including scope, accuracy, liability for mailed stones, payment and governing law.',
-  alternates: { canonical: '/terms' },
-}
+    'The terms governing your use of Diamonds Tester’s diamond testing and verification services: scope, accuracy, liability for mailed stones, payment and governing law.',
+  path: '/terms',
+})
 
 export default function TermsPage() {
   return (
     <section className="section pt-32">
+      <JsonLd data={breadcrumbLd([{ name: 'Home', path: '/' }, { name: 'Terms of Service', path: '/terms' }])} />
       <div className="container-wide">
         <Reveal className="mx-auto max-w-3xl text-center">
           <span className="eyebrow">Legal</span>

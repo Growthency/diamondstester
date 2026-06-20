@@ -1,20 +1,28 @@
-import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 import { Reveal } from '@/components/motion/Reveal'
 import { Button } from '@/components/ui/button'
+import { pageMeta, breadcrumbLd } from '@/lib/seo'
+import { JsonLd } from '@/components/seo/JsonLd'
 import { PriceEstimator } from './PriceEstimator'
 
-export const metadata: Metadata = {
-  title: 'Diamond Price Estimator — Indicative Value from the 4Cs',
+export const metadata = pageMeta({
+  title: 'Diamond Price Estimator — Value from the 4Cs',
   description:
-    'Estimate a diamond’s price range from carat, cut, colour and clarity. A transparent, gemologist-built model that shows how each of the 4Cs moves value.',
-  alternates: { canonical: '/tools/price-estimator' },
-}
+    'Estimate a diamond’s price range from carat, cut, colour and clarity. A transparent, gemologist-built model that shows how each of the 4Cs moves the value band.',
+  path: '/tools/price-estimator',
+})
 
 export default function PriceEstimatorPage() {
   return (
     <>
+      <JsonLd
+        data={breadcrumbLd([
+          { name: 'Home', path: '/' },
+          { name: 'Tools', path: '/tools' },
+          { name: 'Diamond Price Estimator', path: '/tools/price-estimator' },
+        ])}
+      />
       <section className="section pt-32">
         <div className="container-wide">
           <Reveal className="mx-auto max-w-2xl text-center">

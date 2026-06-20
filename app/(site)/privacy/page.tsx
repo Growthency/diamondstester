@@ -1,18 +1,20 @@
-import type { Metadata } from 'next'
 import Link from 'next/link'
 import { Reveal } from '@/components/motion/Reveal'
 import { site } from '@/lib/site'
+import { pageMeta, breadcrumbLd } from '@/lib/seo'
+import { JsonLd } from '@/components/seo/JsonLd'
 
-export const metadata: Metadata = {
-  title: 'Privacy Policy',
+export const metadata = pageMeta({
+  title: 'Privacy Policy — Diamonds Tester',
   description:
     'How Diamonds Tester collects, uses, protects and retains your personal data, photos and mailed-in stones — and the rights you have over your information.',
-  alternates: { canonical: '/privacy' },
-}
+  path: '/privacy',
+})
 
 export default function PrivacyPage() {
   return (
     <section className="section pt-32">
+      <JsonLd data={breadcrumbLd([{ name: 'Home', path: '/' }, { name: 'Privacy Policy', path: '/privacy' }])} />
       <div className="container-wide">
         <Reveal className="mx-auto max-w-3xl text-center">
           <span className="eyebrow">Legal</span>

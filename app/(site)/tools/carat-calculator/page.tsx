@@ -1,20 +1,28 @@
-import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 import { Reveal } from '@/components/motion/Reveal'
 import { Button } from '@/components/ui/button'
+import { pageMeta, breadcrumbLd } from '@/lib/seo'
+import { JsonLd } from '@/components/seo/JsonLd'
 import { CaratCalculator } from './CaratCalculator'
 
-export const metadata: Metadata = {
-  title: 'Carat Weight Calculator — Estimate Carats from Measurements',
+export const metadata = pageMeta({
+  title: 'Carat Weight Calculator — Estimate Carats from mm',
   description:
-    'Estimate a diamond’s carat weight from its length, width and depth in millimetres. Supports round, princess, oval, emerald, cushion and pear shapes using industry-standard formulas.',
-  alternates: { canonical: '/tools/carat-calculator' },
-}
+    'Estimate a diamond’s carat weight from its length, width and depth in millimetres. Supports round, princess, oval, emerald, cushion and pear shapes with trade formulas.',
+  path: '/tools/carat-calculator',
+})
 
 export default function CaratCalculatorPage() {
   return (
     <>
+      <JsonLd
+        data={breadcrumbLd([
+          { name: 'Home', path: '/' },
+          { name: 'Tools', path: '/tools' },
+          { name: 'Carat Weight Calculator', path: '/tools/carat-calculator' },
+        ])}
+      />
       <section className="section pt-32">
         <div className="container-wide">
           <Reveal className="mx-auto max-w-2xl text-center">

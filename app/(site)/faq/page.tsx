@@ -8,12 +8,15 @@ import {
 } from '@/components/ui/accordion'
 import { faqs } from '@/lib/content/site-data'
 import { whatsappHref } from '@/lib/site'
+import { pageMeta, breadcrumbLd, faqLd } from '@/lib/seo'
+import { JsonLd } from '@/components/seo/JsonLd'
 
-export const metadata = {
-  title: 'FAQ',
+export const metadata = pageMeta({
+  title: 'Diamond Testing FAQ — Accuracy, Pricing & Shipping',
   description:
     'Answers to the questions diamond owners actually ask — on testing accuracy, pricing and turnaround, shipping and safety, and certificates for insurance and resale.',
-}
+  path: '/faq',
+})
 
 const pick = (q: string) => faqs.find((f) => f.q === q)!
 
@@ -99,8 +102,16 @@ const categories = [
 ]
 
 export default function FaqPage() {
+  const allFaqs = categories.flatMap((cat) => cat.items.map((f) => ({ q: f.q, a: f.a })))
+
   return (
     <>
+      <JsonLd
+        data={[
+          breadcrumbLd([{ name: 'Home', path: '/' }, { name: 'FAQ', path: '/faq' }]),
+          faqLd(allFaqs),
+        ]}
+      />
       {/* Hero */}
       <section className="section pt-32">
         <div className="container-wide">

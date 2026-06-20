@@ -1,20 +1,20 @@
-import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react'
 import { getAllPosts, getCategories, getFeaturedPost } from '@/lib/blog'
 import { coverFor } from '@/lib/content/covers'
-import { site } from '@/lib/site'
 import { formatDate, cn } from '@/lib/utils'
+import { pageMeta, breadcrumbLd } from '@/lib/seo'
+import { JsonLd } from '@/components/seo/JsonLd'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Reveal, Stagger } from '@/components/motion/Reveal'
 
-export const metadata: Metadata = {
-  title: 'The Diamonds Tester Journal — Diamond Guides, Comparisons & Expert Insight',
+export const metadata = pageMeta({
+  title: 'The Diamonds Tester Journal — Diamond Guides & Expert Insight',
   description:
     'Plain-English guides to diamond authenticity, the 4Cs, lab-grown vs natural and certification — written by Diamonds Tester gemologists.',
-  alternates: { canonical: `${site.url.replace(/\/$/, '')}/blog` },
-}
+  path: '/blog',
+})
 
 const FIRST_PAGE = 6 // page 1: 2 rows of 3 (alongside the featured banner)
 const PER_PAGE = 9 // page 2+: 3 rows of 3
@@ -56,6 +56,13 @@ export default async function BlogIndexPage({
 
   return (
     <>
+      <JsonLd
+        data={breadcrumbLd([
+          { name: 'Home', path: '/' },
+          { name: 'Blog', path: '/blog' },
+        ])}
+      />
+
       {/* Hero */}
       <section className="section pt-32">
         <div className="container-wide">

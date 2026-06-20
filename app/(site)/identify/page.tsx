@@ -1,16 +1,18 @@
-import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ArrowRight, Camera, ScanLine, ShieldCheck, Sparkles } from 'lucide-react'
 import { DiamondAnalyzer } from '@/components/identify/DiamondAnalyzer'
 import { SectionDivider } from '@/components/home/SectionDivider'
 import { Reveal, Stagger } from '@/components/motion/Reveal'
 import { Button } from '@/components/ui/button'
+import { pageMeta, breadcrumbLd } from '@/lib/seo'
+import { JsonLd } from '@/components/seo/JsonLd'
 
-export const metadata: Metadata = {
-  title: 'Test My Diamond — Instant AI Photo Analysis',
+export const metadata = pageMeta({
+  title: 'Test My Diamond | Instant AI Photo Analysis, Free',
   description:
-    'Upload a photo of your diamond and get an instant, gemologist-trained verdict on whether it’s a real diamond, lab-grown, or a simulant like moissanite or CZ — free.',
-}
+    'Upload a photo of your diamond for an instant, gemologist-trained verdict on whether it’s a real diamond, lab-grown, or a simulant like moissanite or CZ — free.',
+  path: '/identify',
+})
 
 const steps = [
   { icon: 'Camera', title: 'Photograph', body: 'Take 1–3 clear, well-lit shots of your stone — top, side and through the table if you can.' },
@@ -21,6 +23,7 @@ const steps = [
 export default function IdentifyPage() {
   return (
     <>
+      <JsonLd data={breadcrumbLd([{ name: 'Home', path: '/' }, { name: 'Identify', path: '/identify' }])} />
       <section className="section pt-32">
         <div className="container-wide">
           <Reveal className="mx-auto max-w-2xl text-center">

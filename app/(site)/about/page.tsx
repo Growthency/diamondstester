@@ -6,12 +6,15 @@ import { Icon } from '@/components/ui/Icon'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { stats } from '@/lib/content/site-data'
+import { pageMeta, breadcrumbLd } from '@/lib/seo'
+import { JsonLd } from '@/components/seo/JsonLd'
 
-export const metadata = {
-  title: 'About',
+export const metadata = pageMeta({
+  title: 'About Diamonds Tester | Certified Gemologists & Lab',
   description:
-    'Diamonds Tester was founded by certified gemologists tired of jeweller markups and unreliable tester pens. Meet the lab, the methodology and the people behind every verdict.',
-}
+    'Founded by certified gemologists tired of jeweller markups and unreliable tester pens. Meet the lab, the methodology and the people behind every diamond verdict.',
+  path: '/about',
+})
 
 const values = [
   {
@@ -85,6 +88,7 @@ const methodology = [
 export default function AboutPage() {
   return (
     <>
+      <JsonLd data={breadcrumbLd([{ name: 'Home', path: '/' }, { name: 'About', path: '/about' }])} />
       {/* Hero */}
       <section className="section pt-32">
         <div className="container-wide">

@@ -1,4 +1,3 @@
-import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 import { Reveal, Stagger } from '@/components/motion/Reveal'
@@ -6,13 +5,15 @@ import { Icon } from '@/components/ui/Icon'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { SectionDivider } from '@/components/home/SectionDivider'
+import { pageMeta, breadcrumbLd } from '@/lib/seo'
+import { JsonLd } from '@/components/seo/JsonLd'
 
-export const metadata: Metadata = {
+export const metadata = pageMeta({
   title: 'Free Diamond Tools — Carat, Price & Authenticity',
   description:
-    'Three free, gemologist-built tools: estimate carat weight from your stone’s measurements, ballpark a diamond price range from the 4Cs, and test whether you can spot a real diamond.',
-  alternates: { canonical: '/tools' },
-}
+    'Three free, gemologist-built tools: estimate carat weight from a stone’s measurements, ballpark a diamond price range from the 4Cs, and test if you can spot a real diamond.',
+  path: '/tools',
+})
 
 const tools = [
   {
@@ -44,6 +45,7 @@ const tools = [
 export default function ToolsPage() {
   return (
     <>
+      <JsonLd data={breadcrumbLd([{ name: 'Home', path: '/' }, { name: 'Tools', path: '/tools' }])} />
       <section className="section pt-32">
         <div className="container-wide">
           <Reveal className="mx-auto max-w-2xl text-center">

@@ -4,7 +4,8 @@ import { notFound } from 'next/navigation'
 import { ArrowRight, ChevronRight } from 'lucide-react'
 import { getAllPosts, getPostBySlug, getRelatedPosts } from '@/lib/blog'
 import { renderMarkdown, extractHeadings } from '@/lib/markdown'
-import { site } from '@/lib/site'
+import { pageMeta, articleLd, breadcrumbLd } from '@/lib/seo'
+import { JsonLd } from '@/components/seo/JsonLd'
 import { formatDate } from '@/lib/utils'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -29,29 +30,14 @@ export async function generateMetadata({
   const post = await getPostBySlug(params.slug)
   if (!post) return { title: 'Article not found — Diamonds Tester Journal' }
 
-  const url = `${site.url.replace(/\/$/, '')}/blog/${post.slug}`
-  const title = post.seo_title || post.title
-  const description = post.seo_description || post.excerpt
-
-  return {
-    title,
-    description,
-    alternates: { canonical: url },
-    openGraph: {
-      title,
-      description,
-      url,
-      type: 'article',
-      publishedTime: post.published_at,
-      authors: [post.author],
-      tags: post.tags,
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title,
-      description,
-    },
-  }
+  return pageMeta({
+    title: post.seo_title || post.title,
+    description: post.seo_description || post.excerpt,
+    path: `/blog/${post.slug}`,
+    type: 'article',
+    publishedTime: post.published_at,
+    authors: [post.author],
+  })
 }
 
 export default async function ArticlePage({ params }: { params: { slug: string } }) {
@@ -72,6 +58,17 @@ export default async function ArticlePage({ params }: { params: { slug: string }
 
   return (
     <>
+      <JsonLd
+        data={[
+          articleLd(post),
+          breadcrumbLd([
+            { name: 'Home', path: '/' },
+            { name: 'Blog', path: '/blog' },
+            { name: post.title, path: `/blog/${post.slug}` },
+          ]),
+        ]}
+      />
+
       {/* Header */}
       <section className="section pt-32 pb-0">
         <div className="container-wide">

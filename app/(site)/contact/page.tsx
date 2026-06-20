@@ -1,16 +1,17 @@
-import type { Metadata } from 'next'
 import { Mail, Phone, MapPin, Clock, MessageCircle } from 'lucide-react'
 import { Reveal } from '@/components/motion/Reveal'
 import { Button } from '@/components/ui/button'
 import { site, whatsappHref } from '@/lib/site'
+import { pageMeta, breadcrumbLd } from '@/lib/seo'
+import { JsonLd } from '@/components/seo/JsonLd'
 import { ContactForm } from './ContactForm'
 
-export const metadata: Metadata = {
+export const metadata = pageMeta({
   title: 'Contact Diamonds Tester — Talk to a Gemologist',
   description:
-    'Questions about verifying a diamond, mailing in a stone or a certificate? Reach the Diamonds Tester team by message, email, phone or WhatsApp.',
-  alternates: { canonical: '/contact' },
-}
+    'Questions about verifying a diamond, mailing in a stone or a certificate? Reach the Diamonds Tester team by message, email, phone or WhatsApp — a reply in one day.',
+  path: '/contact',
+})
 
 const socials = [
   { label: 'Instagram', href: site.social.instagram },
@@ -35,6 +36,7 @@ export default function ContactPage() {
 
   return (
     <section className="section pt-32">
+      <JsonLd data={breadcrumbLd([{ name: 'Home', path: '/' }, { name: 'Contact', path: '/contact' }])} />
       <div className="container-wide">
         <Reveal className="mx-auto max-w-2xl text-center">
           <span className="eyebrow">Get in touch</span>

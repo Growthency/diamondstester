@@ -5,12 +5,15 @@ import { Reveal, Stagger } from '@/components/motion/Reveal'
 import { Icon } from '@/components/ui/Icon'
 import { Button } from '@/components/ui/button'
 import { process } from '@/lib/content/site-data'
+import { pageMeta, breadcrumbLd } from '@/lib/seo'
+import { JsonLd } from '@/components/seo/JsonLd'
 
-export const metadata = {
-  title: 'How It Works',
+export const metadata = pageMeta({
+  title: 'How Diamond Verification Works | Photo & Lab Flow',
   description:
-    'From photo to verdict, step by step. See exactly how the photo flow and the lab flow work, what your report contains, and an honest look at what each method can and cannot tell you.',
-}
+    'From photo to verdict, step by step. See how the photo flow and the lab flow work, what your report contains, and an honest look at what each method can and cannot tell you.',
+  path: '/how-it-works',
+})
 
 const photoFlow = [
   {
@@ -106,6 +109,7 @@ function Flow({
 export default function HowItWorksPage() {
   return (
     <>
+      <JsonLd data={breadcrumbLd([{ name: 'Home', path: '/' }, { name: 'How It Works', path: '/how-it-works' }])} />
       {/* Hero */}
       <section className="section pt-32">
         <div className="container-wide">

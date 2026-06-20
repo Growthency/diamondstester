@@ -1,17 +1,25 @@
-import type { Metadata } from 'next'
 import { Reveal } from '@/components/motion/Reveal'
+import { pageMeta, breadcrumbLd } from '@/lib/seo'
+import { JsonLd } from '@/components/seo/JsonLd'
 import { DiamondQuiz } from './DiamondQuiz'
 
-export const metadata: Metadata = {
-  title: 'Can You Spot a Real Diamond? — Authenticity Quiz',
+export const metadata = pageMeta({
+  title: 'Can You Spot a Real Diamond? Authenticity Quiz',
   description:
     'Test your eye with six questions on the tests that actually separate real diamond from moissanite, cubic zirconia and glass. Instant feedback and a final verdict.',
-  alternates: { canonical: '/tools/quiz' },
-}
+  path: '/tools/quiz',
+})
 
 export default function QuizPage() {
   return (
     <section className="section pt-32">
+      <JsonLd
+        data={breadcrumbLd([
+          { name: 'Home', path: '/' },
+          { name: 'Tools', path: '/tools' },
+          { name: 'Real-vs-Fake Quiz', path: '/tools/quiz' },
+        ])}
+      />
       <div className="container-wide">
         <Reveal className="mx-auto max-w-2xl text-center">
           <span className="eyebrow">Free tool</span>

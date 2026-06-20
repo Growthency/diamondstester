@@ -9,12 +9,15 @@ import {
   Accordion, AccordionContent, AccordionItem, AccordionTrigger,
 } from '@/components/ui/accordion'
 import { services, faqs } from '@/lib/content/site-data'
+import { pageMeta, breadcrumbLd } from '@/lib/seo'
+import { JsonLd } from '@/components/seo/JsonLd'
 
-export const metadata = {
-  title: 'Services',
+export const metadata = pageMeta({
+  title: 'Diamond Testing Services | Photo, Mail-In & Lab Cert',
   description:
     'Three ways to verify a diamond: a free instant photo screen, insured mail-in testing, and full lab certification. Compare turnaround, pricing and what each report includes.',
-}
+  path: '/services',
+})
 
 /** Per-service deep detail keyed by the shared data id. */
 const detail: Record<
@@ -85,6 +88,7 @@ const serviceFaqs = faqs.filter((f) =>
 export default function ServicesPage() {
   return (
     <>
+      <JsonLd data={breadcrumbLd([{ name: 'Home', path: '/' }, { name: 'Services', path: '/services' }])} />
       {/* Hero */}
       <section className="section pt-32">
         <div className="container-wide">

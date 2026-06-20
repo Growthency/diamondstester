@@ -2,13 +2,16 @@ import { Clock, ShieldCheck, FileCheck2, Lock, Star } from 'lucide-react'
 import { Reveal } from '@/components/motion/Reveal'
 import { Icon } from '@/components/ui/Icon'
 import { stats } from '@/lib/content/site-data'
+import { pageMeta, breadcrumbLd } from '@/lib/seo'
+import { JsonLd } from '@/components/seo/JsonLd'
 import { VerifyForm } from './VerifyForm'
 
-export const metadata = {
-  title: 'Verify a Diamond',
+export const metadata = pageMeta({
+  title: 'Verify a Diamond | Free Photo, Mail-In & Lab Testing',
   description:
     'Start your diamond verification. Upload a photo for a free instant verdict, or request insured mail-in or full lab testing — backed by certified gemologists, no subscriptions.',
-}
+  path: '/verify',
+})
 
 const benefits = [
   {
@@ -40,6 +43,7 @@ export default function VerifyPage({
 }) {
   return (
     <>
+      <JsonLd data={breadcrumbLd([{ name: 'Home', path: '/' }, { name: 'Verify', path: '/verify' }])} />
       <section className="section pt-32">
         <div className="container-wide">
           <Reveal className="mx-auto max-w-2xl text-center">
