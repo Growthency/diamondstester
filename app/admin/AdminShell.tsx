@@ -6,7 +6,9 @@ import { usePathname } from 'next/navigation'
 import {
   BarChart3,
   FileText,
+  Files,
   Gem,
+  Home,
   ImageIcon,
   KeyRound,
   LayoutDashboard,
@@ -14,6 +16,15 @@ import {
   Mail,
   Menu,
   Settings,
+  ShieldCheck,
+  TrendingUp,
+  ScanSearch,
+  ListTree,
+  Code2,
+  PanelBottom,
+  ExternalLink,
+  Palette,
+  Paintbrush,
   X,
   type LucideIcon,
 } from 'lucide-react'
@@ -36,8 +47,29 @@ const NAV: { section: string; links: NavLink[] }[] = [
   {
     section: 'Content',
     links: [
+      { href: '/admin/pages', label: 'Pages', icon: Files },
       { href: '/admin/blog', label: 'Blog Posts', icon: FileText },
+      { href: '/admin/homepage', label: 'Homepage', icon: Home },
       { href: '/admin/media', label: 'Media Library', icon: ImageIcon },
+    ],
+  },
+  {
+    section: 'SEO',
+    links: [
+      { href: '/admin/seo-health', label: 'SEO Health', icon: ShieldCheck },
+      { href: '/admin/rank-tracker', label: 'Rank Tracker', icon: TrendingUp },
+      { href: '/admin/indexing-report', label: 'Indexing Report', icon: ScanSearch },
+    ],
+  },
+  {
+    section: 'Customize',
+    links: [
+      { href: '/admin/menus', label: 'Menus', icon: ListTree },
+      { href: '/admin/header-scripts', label: 'Header Scripts', icon: Code2 },
+      { href: '/admin/footer-content', label: 'Footer Content', icon: PanelBottom },
+      { href: '/admin/external-links', label: 'External Links', icon: ExternalLink },
+      { href: '/admin/theme-colors', label: 'Theme Colors', icon: Palette },
+      { href: '/admin/custom-css', label: 'Custom CSS', icon: Paintbrush },
     ],
   },
   {

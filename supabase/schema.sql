@@ -138,6 +138,33 @@ create table if not exists public.analyses (
 create index if not exists idx_analyses_created on public.analyses (created_at desc);
 create index if not exists idx_analyses_hash    on public.analyses (image_hash);
 
+-- ── SEO RANK TRACKER ─────────────────────────────────────────────────────────
+create table if not exists public.seo_keywords (
+  id          bigserial primary key,
+  keyword     text not null,
+  target_url  text,
+  position    int,
+  prev_position int,
+  search_volume int,
+  country     text default 'US',
+  checked_at  timestamptz,
+  created_at  timestamptz not null default now()
+);
+create index if not exists idx_keywords_created on public.seo_keywords (created_at desc);
+
+-- ── EXTERNAL / AFFILIATE LINKS ───────────────────────────────────────────────
+create table if not exists public.external_links (
+  id          bigserial primary key,
+  label       text not null,
+  url         text not null,
+  rel         text default 'nofollow noopener',
+  location    text default 'footer',
+  sort_order  int default 0,
+  active      boolean not null default true,
+  created_at  timestamptz not null default now()
+);
+create index if not exists idx_extlinks_order on public.external_links (sort_order);
+
 -- ── USER ACCOUNTS (Supabase Auth → dashboard) ────────────────────────────────
 create table if not exists public.profiles (
   id          uuid primary key references auth.users(id) on delete cascade,
@@ -213,7 +240,15 @@ alter table public.page_views          enable row level security;
 alter table public.analyses            enable row level security;
 alter table public.profiles            enable row level security;
 alter table public.saved_articles      enable row level security;
+alter table public.seo_keywords        enable row level security;
+alter table public.external_links      enable row level security;
 alter table public.vault_credentials   enable row level security;
+
+-- external links are shown publicly (e.g. footer), so allow anon read of active ones
+drop policy if exists "read active external links" on public.external_links;
+create policy "read active external links" on public.external_links
+  for select using (active = true);
+-- seo_keywords: admin-only (no anon policy → default deny)
 
 -- users manage only their OWN profile
 drop policy if exists "own profile read"   on public.profiles;
