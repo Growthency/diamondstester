@@ -11,10 +11,21 @@ let ephemeralSecret: string | null = null
 function getSecret(): string {
   const s = process.env.SESSION_SECRET
   if (s && s.length >= 16) return s
+
+  // Stable serverless fallback: when SESSION_SECRET isn't set (common on a first
+  // Vercel deploy), derive a deterministic secret from the Supabase service-role
+  // key. It's a secret env var that's identical across every serverless instance,
+  // so admin sessions verify correctly in production without an extra variable.
+  // (Setting SESSION_SECRET explicitly is still recommended.)
+  const svc = process.env.SUPABASE_SERVICE_ROLE_KEY
+  if (svc && svc.length >= 16) {
+    return crypto.createHash('sha256').update('ciq-session-v1:' + svc).digest('base64')
+  }
+
   if (process.env.NODE_ENV === 'production') {
     if (!ephemeralSecret) {
       console.error(
-        '[session] SESSION_SECRET is not set — using an ephemeral secret. Sessions will not survive a restart. Set SESSION_SECRET in your environment.',
+        '[session] No SESSION_SECRET or SUPABASE_SERVICE_ROLE_KEY set — using an ephemeral secret. Admin sessions will not persist across serverless instances. Set SESSION_SECRET in your environment.',
       )
       ephemeralSecret = crypto.randomBytes(32).toString('base64url')
     }
