@@ -48,7 +48,7 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
-  // verification: { google: 'YOUR_GSC_TOKEN' },  // add your Search Console token
+  verification: { google: 'jiAOseT9QQjg8M1guMUWxnA_GmhuBeaOzV4M-T50SgM' },
   icons: { icon: '/favicon.svg', apple: '/icon.svg' },
 }
 
