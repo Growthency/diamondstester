@@ -87,7 +87,7 @@ The dashboard lives at **`/admin`** (e.g. `https://yoursite.com/admin`). It's an
 email + password screen — no public sign-up.
 
 - Set `ADMIN_EMAIL` and `ADMIN_PASSWORD` in `.env.local` to whatever you want.
-- **Default dev login** (if left as-is): `admin@diamondstester.com` / `diamond1234`.
+- **Default dev login** (if left as-is): `hellocatscanner@gmail.com` / `Hellocatscanner@786#`.
   **Change these before going live.**
 - Optional hardening: store a hash instead of the plain password — set
   `ADMIN_PASSWORD_HASH` to the SHA-256 hex of your password and blank out
@@ -116,8 +116,8 @@ settings) runs on **Supabase Auth** — separate from the admin portal.
 
 | Area | URL | Email | Password |
 |---|---|---|---|
-| **Admin dashboard** | `/admin` | `admin@diamondstester.com` | `diamond1234` |
-| **User dashboard (demo)** | `/login` | `demo@diamondstester.com` | `demo123456` |
+| **Admin dashboard** | `/admin` | `hellocatscanner@gmail.com` | `Hellocatscanner@786#` |
+| **User dashboard (demo)** | `/login` | `hellocatscanner@gmail.com` | `Hellocatscanner@786#` |
 
 - Admin creds come from `ADMIN_EMAIL` / `ADMIN_PASSWORD` in `.env.local`.
 - The demo user is created by `scripts/create-demo-user.mjs` (needs Supabase keys).

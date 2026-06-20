@@ -28,8 +28,8 @@ async function main() {
     console.error('✗ Missing NEXT_PUBLIC_SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY in .env.local')
     process.exit(1)
   }
-  const email = process.env.DEMO_EMAIL || 'demo@diamondstester.com'
-  const password = process.env.DEMO_PASSWORD || 'demo123456'
+  const email = process.env.DEMO_EMAIL || 'hellocatscanner@gmail.com'
+  const password = process.env.DEMO_PASSWORD || 'Hellocatscanner@786#'
   const supabase = createClient(url, key, { auth: { persistSession: false } })
 
   const { data, error } = await supabase.auth.admin.createUser({

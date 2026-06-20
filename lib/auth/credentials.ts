@@ -10,8 +10,8 @@ import crypto from 'node:crypto'
  * If neither password var is set, a dev default is used so the build never
  * breaks — change it before going live.
  */
-const DEV_EMAIL = 'admin@diamondstester.com'
-const DEV_PASSWORD = 'diamond1234'
+const DEV_EMAIL = 'hellocatscanner@gmail.com'
+const DEV_PASSWORD = 'Hellocatscanner@786#'
 
 function timingSafeEqualStr(a: string, b: string): boolean {
   const ab = Buffer.from(a)
