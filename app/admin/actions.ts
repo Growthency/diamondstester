@@ -7,6 +7,7 @@ import { createSession, deleteSession } from '@/lib/auth/session'
 export interface LoginState {
   error?: string
   email?: string
+  ok?: boolean
 }
 
 export async function loginAction(
@@ -24,8 +25,12 @@ export async function loginAction(
     return { error: 'Invalid email or password.', email }
   }
 
+  // Set the signed session cookie, then let the client navigate. (Calling
+  // redirect() here throws NEXT_REDIRECT, which gets swallowed when the action
+  // is awaited imperatively from the client — so the login appeared to do
+  // nothing on success. Returning ok + client-side router.push is reliable.)
   await createSession({ userId: 'admin', email })
-  redirect('/admin')
+  return { ok: true }
 }
 
 export async function logoutAction(): Promise<void> {

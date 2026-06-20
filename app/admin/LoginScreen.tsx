@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useTransition } from 'react'
+import { useRouter } from 'next/navigation'
 import { Loader2, Lock, ShieldCheck } from 'lucide-react'
 import { Logo } from '@/components/brand/Logo'
 import { Button } from '@/components/ui/button'
@@ -9,6 +10,7 @@ import { Label } from '@/components/ui/label'
 import { loginAction } from './actions'
 
 export function LoginScreen() {
+  const router = useRouter()
   const [error, setError] = useState<string | null>(null)
   const [email, setEmail] = useState('')
   const [pending, startTransition] = useTransition()
@@ -19,8 +21,12 @@ export function LoginScreen() {
     setError(null)
     const formData = new FormData(e.currentTarget)
     startTransition(async () => {
-      // On success the action redirects (throws internally) and never returns.
       const result = await loginAction(undefined, formData)
+      if (result?.ok) {
+        router.push('/admin')
+        router.refresh()
+        return
+      }
       if (result?.error) {
         setError(result.error)
         if (typeof result.email === 'string') setEmail(result.email)
