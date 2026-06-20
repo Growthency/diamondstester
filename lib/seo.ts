@@ -26,6 +26,18 @@ export function pageMeta(opts: {
   noIndex?: boolean
 }): Metadata {
   const url = absoluteUrl(opts.path)
+
+  // Always attach an OG/Twitter image so social shares (Facebook/WhatsApp/X)
+  // render a branded preview. Blog articles use their own per-post image (shows
+  // the post title); every other page uses the site-wide image. Setting
+  // openGraph explicitly otherwise drops the file-based image, so we resolve it
+  // here. URLs are relative and resolved to absolute via metadataBase.
+  const ogPath =
+    opts.type === 'article' && opts.path.startsWith('/blog/')
+      ? `${opts.path.replace(/\/$/, '')}/opengraph-image`
+      : '/opengraph-image'
+  const images = opts.images ?? [{ url: ogPath, width: 1200, height: 630, alt: opts.title }]
+
   return {
     title: opts.title,
     description: opts.description,
@@ -39,7 +51,7 @@ export function pageMeta(opts: {
       title: opts.title,
       description: opts.description,
       locale: site.locale,
-      ...(opts.images ? { images: opts.images } : {}),
+      images,
       ...(opts.publishedTime ? { publishedTime: opts.publishedTime } : {}),
       ...(opts.authors ? { authors: opts.authors } : {}),
     },
@@ -47,7 +59,7 @@ export function pageMeta(opts: {
       card: 'summary_large_image',
       title: opts.title,
       description: opts.description,
-      ...(opts.images ? { images: opts.images.map((i) => i.url) } : {}),
+      images: images.map((i) => i.url),
     },
   }
 }

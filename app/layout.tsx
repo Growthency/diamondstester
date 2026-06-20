@@ -34,8 +34,9 @@ export const metadata: Metadata = {
     siteName: site.name,
     title: `${site.name} — ${site.tagline}`,
     description: site.description,
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: `${site.name} — ${site.tagline}` }],
   },
-  twitter: { card: 'summary_large_image', title: site.name, description: site.description },
+  twitter: { card: 'summary_large_image', title: site.name, description: site.description, images: ['/opengraph-image'] },
   robots: {
     index: true,
     follow: true,
