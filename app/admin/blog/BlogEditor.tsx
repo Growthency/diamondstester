@@ -36,7 +36,7 @@ function toFormState(post: AdminPost | null): FormState {
     excerpt: post?.excerpt ?? '',
     category: post?.category ?? 'Guides',
     tags: post?.tags?.join(', ') ?? '',
-    author: post?.author ?? 'CaratIQ Team',
+    author: post?.author ?? 'Diamonds Tester Team',
     author_role: post?.author_role ?? 'Gemologist',
     cover_image: post?.cover_image ?? '',
     content: post?.content ?? '',
@@ -124,7 +124,7 @@ export function BlogEditor({
       excerpt: form.excerpt.trim(),
       content: form.content,
       cover_image: form.cover_image.trim() || null,
-      author: form.author.trim() || 'CaratIQ Team',
+      author: form.author.trim() || 'Diamonds Tester Team',
       author_role: form.author_role.trim() || 'Gemologist',
       category: form.category.trim() || 'Guides',
       tags: form.tags

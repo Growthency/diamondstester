@@ -43,7 +43,7 @@
     --font-display: 'Sora', var(--font-sans);
   }
 
-  /* Optional light surface (used by a few inner editor screens) */
+  /* Light theme — inverts ink surfaces + platinum text so the whole system flips */
   .light {
     --background: 210 40% 99%;
     --foreground: 222 47% 11%;
@@ -54,13 +54,27 @@
     --secondary: 216 33% 95%;
     --secondary-foreground: 222 47% 11%;
     --muted: 216 33% 95%;
-    --muted-foreground: 216 16% 42%;
+    --muted-foreground: 216 16% 40%;
     --accent: 189 94% 43%;
     --accent-foreground: 0 0% 100%;
     --border: 216 28% 88%;
     --input: 216 28% 88%;
     --ring: 239 84% 60%;
+
+    /* brand surface + text tokens flipped for light */
+    --ink: 210 40% 98%;
+    --ink-soft: 214 40% 96%;
+    --ink-elevated: 0 0% 100%;
+    --platinum: 222 47% 13%;
+    --platinum-muted: 216 16% 40%;
+    /* brilliant accents stay vivid but a touch deeper so they read on white */
+    --brilliant-cyan: 192 90% 45%;
+    --brilliant-indigo: 239 70% 60%;
+    --brilliant-violet: 271 75% 58%;
   }
+  /* tame the glowing aurora blobs on a light background */
+  .light .aurora { opacity: 0.22; }
+  .light .grain::before { opacity: 0.02; }
 
   * {
     @apply border-border;

@@ -3,7 +3,7 @@ import { Settings2 } from 'lucide-react'
 import { SettingsForm } from './SettingsForm'
 
 export const metadata: Metadata = {
-  title: 'Settings — CaratIQ',
+  title: 'Settings — Diamonds Tester',
   robots: { index: false, follow: false },
 }
 
@@ -20,7 +20,7 @@ export default function SettingsPage() {
           Account <span className="text-gradient">settings</span>
         </h1>
         <p className="mt-2 text-muted-foreground">
-          Manage your profile and how you appear across CaratIQ.
+          Manage your profile and how you appear across Diamonds Tester.
         </p>
       </header>
 

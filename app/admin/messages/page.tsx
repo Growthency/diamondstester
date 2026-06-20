@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { MessagesTable } from './MessagesTable'
 
 export const metadata: Metadata = {
-  title: 'Messages · CaratIQ Admin',
+  title: 'Messages · Diamonds Tester Admin',
   description: 'Review and manage contact form submissions.',
 }
 

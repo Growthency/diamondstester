@@ -1,5 +1,5 @@
 -- ============================================================================
--- CaratIQ — Supabase schema
+-- Diamonds Tester — Supabase schema
 -- Run this once in the Supabase SQL Editor (Dashboard → SQL → New query).
 -- Safe to re-run: everything uses "if not exists" / "or replace".
 -- ============================================================================
@@ -20,7 +20,7 @@ create table if not exists public.blog_posts (
   excerpt       text,
   content       text not null default '',          -- markdown
   cover_image   text,                               -- webp url
-  author        text not null default 'CaratIQ Team',
+  author        text not null default 'Diamonds Tester Team',
   author_role   text default 'Gemologist',
   category      text default 'Guides',
   tags          text[] default '{}',

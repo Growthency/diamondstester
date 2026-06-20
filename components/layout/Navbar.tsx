@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation'
 import { Menu, X, LayoutDashboard, LogIn } from 'lucide-react'
 import { Logo } from '@/components/brand/Logo'
 import { Button } from '@/components/ui/button'
+import { ThemeToggle } from '@/components/widgets/ThemeToggle'
 import { createClient } from '@/lib/supabase/client'
 import { site } from '@/lib/site'
 import { cn } from '@/lib/utils'
@@ -69,6 +70,7 @@ export function Navbar() {
         </div>
 
         <div className="hidden items-center gap-2 lg:flex">
+          <ThemeToggle />
           {signedIn ? (
             <Button asChild variant="ghost" size="sm">
               <Link href="/dashboard"><LayoutDashboard className="h-4 w-4" /> Dashboard</Link>
@@ -83,13 +85,16 @@ export function Navbar() {
           </Button>
         </div>
 
-        <button
-          className="grid h-10 w-10 place-items-center rounded-full border border-border text-platinum lg:hidden"
-          onClick={() => setOpen((v) => !v)}
-          aria-label="Toggle menu"
-        >
-          {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-        </button>
+        <div className="flex items-center gap-2 lg:hidden">
+          <ThemeToggle />
+          <button
+            className="grid h-10 w-10 place-items-center rounded-full border border-border text-platinum"
+            onClick={() => setOpen((v) => !v)}
+            aria-label="Toggle menu"
+          >
+            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
+        </div>
       </nav>
 
       {/* Mobile drawer */}

@@ -1,5 +1,5 @@
 /**
- * Real, business-ready marketing content for CaratIQ. Pages import from here so
+ * Real, business-ready marketing content for Diamonds Tester. Pages import from here so
  * copy stays consistent and there is never a "lorem ipsum" / demo line anywhere.
  */
 
@@ -153,7 +153,7 @@ export const realVsFake = [
 export const testimonials = [
   {
     quote:
-      'Inherited my grandmother’s ring and had no paperwork. CaratIQ confirmed it was a natural 1.2ct and the certificate got it insured the same week.',
+      'Inherited my grandmother’s ring and had no paperwork. Diamonds Tester confirmed it was a natural 1.2ct and the certificate got it insured the same week.',
     name: 'Priya N.',
     role: 'London, UK',
   },
@@ -230,7 +230,7 @@ export const photoTips = [
 ]
 
 export const comparison = {
-  columns: ['CaratIQ', 'High-street jeweller', '$20 tester pen', 'Guesswork'],
+  columns: ['Diamonds Tester', 'High-street jeweller', '$20 tester pen', 'Guesswork'],
   rows: [
     { feature: 'Instant photo verdict', values: ['yes', 'no', 'no', 'no'] },
     { feature: 'Catches moissanite', values: ['yes', 'maybe', 'no', 'no'] },

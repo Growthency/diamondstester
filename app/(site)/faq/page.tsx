@@ -50,7 +50,7 @@ const categories = [
       },
       {
         q: 'Are there any subscriptions or recurring charges?',
-        a: 'No. CaratIQ is strictly pay-per-test. You own your report forever and we never charge you again to access it.',
+        a: 'No. Diamonds Tester is strictly pay-per-test. You own your report forever and we never charge you again to access it.',
       },
       {
         q: 'Can I upgrade from a photo screen to a full lab test later?',

@@ -133,7 +133,7 @@ export function SettingsForm() {
                 onChange={(e) =>
                   setGeneral((g) => ({ ...g, contact_email: e.target.value }))
                 }
-                placeholder="hello@caratiq.com"
+                placeholder="hello@diamondstester.com"
               />
             </div>
             <div className="space-y-1.5">
@@ -191,7 +191,7 @@ export function SettingsForm() {
               rows={3}
               value={footer.text}
               onChange={(e) => setFooter((f) => ({ ...f, text: e.target.value }))}
-              placeholder="© CaratIQ. All rights reserved."
+              placeholder="© Diamonds Tester. All rights reserved."
             />
           </div>
           <div className="grid gap-4 sm:grid-cols-2">
@@ -304,7 +304,7 @@ export function SettingsForm() {
                 backgroundImage: `linear-gradient(120deg, ${theme.cyan || '#22d3ee'}, ${theme.indigo || '#6366f1'}, ${theme.violet || '#8b5cf6'})`,
               }}
             >
-              CaratIQ
+              Diamonds Tester
             </div>
           </div>
 

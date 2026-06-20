@@ -10,8 +10,8 @@ import crypto from 'node:crypto'
  * If neither password var is set, a dev default is used so the build never
  * breaks — change it before going live.
  */
-const DEV_EMAIL = 'admin@caratiq.com'
-const DEV_PASSWORD = 'caratiq-admin'
+const DEV_EMAIL = 'admin@diamondstester.com'
+const DEV_PASSWORD = 'diamond1234'
 
 function timingSafeEqualStr(a: string, b: string): boolean {
   const ab = Buffer.from(a)

@@ -15,7 +15,7 @@ import { createClient, hasSupabaseConfig } from '@/lib/supabase/server'
 import { formatDate } from '@/lib/utils'
 
 export const metadata: Metadata = {
-  title: 'Test history — CaratIQ',
+  title: 'Test history — Diamonds Tester',
   robots: { index: false, follow: false },
 }
 

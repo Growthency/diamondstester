@@ -62,12 +62,12 @@ export default async function HomePage() {
       <section className="section">
         <div className="container-wide">
           <Reveal className="mx-auto max-w-2xl text-center">
-            <span className="eyebrow">Why CaratIQ</span>
+            <span className="eyebrow">Why Diamonds Tester</span>
             <h2 className="mt-5 font-display text-4xl font-bold sm:text-5xl">
               The <span className="text-gradient">cheap pen lies.</span> We don’t.
             </h2>
             <p className="mt-4 text-muted-foreground">
-              A $20 tester checks heat — and moissanite passes it every time. CaratIQ reads the
+              A $20 tester checks heat — and moissanite passes it every time. Diamonds Tester reads the
               optical, electrical and structural tells that actually separate real, lab-grown and fake.
             </p>
           </Reveal>
@@ -293,11 +293,11 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Why choose CaratIQ — comparison table */}
+      {/* Why choose Diamonds Tester — comparison table */}
       <section className="section">
         <div className="container-wide">
           <Reveal className="mx-auto max-w-2xl text-center">
-            <span className="eyebrow">Why choose CaratIQ</span>
+            <span className="eyebrow">Why choose Diamonds Tester</span>
             <h2 className="mt-5 font-display text-4xl font-bold sm:text-5xl">
               The clearer way to <span className="text-gradient">know for sure</span>
             </h2>

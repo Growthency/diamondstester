@@ -6,7 +6,7 @@ import { site } from '@/lib/site'
 export const metadata: Metadata = {
   title: 'Privacy Policy',
   description:
-    'How CaratIQ collects, uses, protects and retains your personal data, photos and mailed-in stones — and the rights you have over your information.',
+    'How Diamonds Tester collects, uses, protects and retains your personal data, photos and mailed-in stones — and the rights you have over your information.',
   alternates: { canonical: '/privacy' },
 }
 
@@ -24,7 +24,7 @@ export default function PrivacyPage() {
 
         <article className="mx-auto mt-14 max-w-3xl space-y-10 text-platinum-muted">
           <p className="text-base leading-relaxed">
-            {site.legalName} (“CaratIQ”, “we”, “us”) provides diamond testing and verification
+            {site.legalName} (“Diamonds Tester”, “we”, “us”) provides diamond testing and verification
             services. This policy explains what personal information we collect when you use our
             website, submit photos, send us a stone, or contact us — and how we protect it. We take
             privacy seriously because you’re trusting us with both your data and, often, valuable

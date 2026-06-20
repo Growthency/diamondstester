@@ -6,7 +6,7 @@ import { site } from '@/lib/site'
 export const metadata: Metadata = {
   title: 'Terms of Service',
   description:
-    'The terms governing your use of CaratIQ’s diamond testing and verification services, including scope, accuracy, liability for mailed stones, payment and governing law.',
+    'The terms governing your use of Diamonds Tester’s diamond testing and verification services, including scope, accuracy, liability for mailed stones, payment and governing law.',
   alternates: { canonical: '/terms' },
 }
 
@@ -25,7 +25,7 @@ export default function TermsPage() {
         <article className="mx-auto mt-14 max-w-3xl space-y-10 text-platinum-muted">
           <p className="text-base leading-relaxed">
             These Terms of Service (“Terms”) govern your use of the website and services provided by{' '}
-            {site.legalName} (“CaratIQ”, “we”, “us”). By uploading a photo, purchasing a service or
+            {site.legalName} (“Diamonds Tester”, “we”, “us”). By uploading a photo, purchasing a service or
             mailing us a stone, you agree to these Terms. Please read them carefully — they include
             important limits on our liability.
           </p>
@@ -33,7 +33,7 @@ export default function TermsPage() {
           <section className="space-y-3">
             <h2 className="font-display text-2xl font-semibold text-platinum">1. Scope of service</h2>
             <p className="leading-relaxed">
-              CaratIQ provides diamond testing, authenticity screening and verification, and, where
+              Diamonds Tester provides diamond testing, authenticity screening and verification, and, where
               purchased, laboratory grading and certification. Our services include free photo
               verification, insured mail-in testing, and full lab certification. We assess
               authenticity (natural, lab-grown or simulant) and, where measurable, the 4Cs of cut,
@@ -73,7 +73,7 @@ export default function TermsPage() {
           <section className="space-y-3">
             <h2 className="font-display text-2xl font-semibold text-platinum">4. Limitation of liability</h2>
             <p className="leading-relaxed">
-              To the fullest extent permitted by law, CaratIQ is not liable for indirect, incidental,
+              To the fullest extent permitted by law, Diamonds Tester is not liable for indirect, incidental,
               special or consequential losses, or for loss of profit, opportunity or anticipated
               savings, arising from your use of our services or reliance on our reports or tools. Our
               total aggregate liability in connection with any service is limited to the greater of
@@ -108,7 +108,7 @@ export default function TermsPage() {
           <section className="space-y-3">
             <h2 className="font-display text-2xl font-semibold text-platinum">7. Intellectual property</h2>
             <p className="leading-relaxed">
-              The CaratIQ name, logo, website, content, methodology and report formats are owned by us
+              The Diamonds Tester name, logo, website, content, methodology and report formats are owned by us
               and protected by intellectual-property laws. The certificate or report we issue for your
               stone is yours to keep and use for insurance, resale and personal records. You may not
               copy, alter, resell or misrepresent our reports, or reproduce our website content for

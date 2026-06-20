@@ -12,7 +12,7 @@ const postSchema = z.object({
   excerpt: z.string().optional().default(''),
   content: z.string().optional().default(''),
   cover_image: z.string().trim().nullable().optional(),
-  author: z.string().trim().optional().default('CaratIQ Team'),
+  author: z.string().trim().optional().default('Diamonds Tester Team'),
   author_role: z.string().trim().optional().default('Gemologist'),
   category: z.string().trim().optional().default('Guides'),
   tags: z.array(z.string()).optional().default([]),

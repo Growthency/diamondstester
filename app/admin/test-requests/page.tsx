@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { TestRequestsTable } from './TestRequestsTable'
 
 export const metadata: Metadata = {
-  title: 'Test Requests · CaratIQ Admin',
+  title: 'Test Requests · Diamonds Tester Admin',
   description: 'Review and process diamond verification requests.',
 }
 

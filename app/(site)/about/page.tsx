@@ -10,7 +10,7 @@ import { stats } from '@/lib/content/site-data'
 export const metadata = {
   title: 'About',
   description:
-    'CaratIQ was founded by certified gemologists tired of jeweller markups and unreliable tester pens. Meet the lab, the methodology and the people behind every verdict.',
+    'Diamonds Tester was founded by certified gemologists tired of jeweller markups and unreliable tester pens. Meet the lab, the methodology and the people behind every verdict.',
 }
 
 const values = [
@@ -41,13 +41,13 @@ const team = [
     name: 'Dr. Helena Voss',
     role: 'Founder & Chief Gemologist',
     cred: 'GIA Graduate Gemologist · PhD, Mineral Physics',
-    bio: 'Spent twelve years grading for an Antwerp trading house before founding CaratIQ. Helena built our optical benchmarking framework against thousands of GIA-graded reference stones.',
+    bio: 'Spent twelve years grading for an Antwerp trading house before founding Diamonds Tester. Helena built our optical benchmarking framework against thousands of GIA-graded reference stones.',
   },
   {
     name: 'Nathan Cole',
     role: 'Head of Laboratory',
     cred: 'IGI Certified Diamond Grader · FGA',
-    bio: 'Runs the instrument floor — conductivity staging, FTIR and UV fluorescence. Nathan’s protocols are why a moissanite has never once slipped past a CaratIQ lab report.',
+    bio: 'Runs the instrument floor — conductivity staging, FTIR and UV fluorescence. Nathan’s protocols are why a moissanite has never once slipped past a Diamonds Tester lab report.',
   },
   {
     name: 'Amara Okafor',
@@ -97,7 +97,7 @@ export default function AboutPage() {
               Built by gemologists, <span className="text-gradient">tired of the guesswork</span>
             </h1>
             <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
-              CaratIQ began with a simple frustration: a 20-dollar tester pen calls moissanite a
+              Diamonds Tester began with a simple frustration: a 20-dollar tester pen calls moissanite a
               diamond, and the jeweller down the road wants a fortune just to tell you what you
               already own. We thought owners deserved an answer that was independent, instrument-backed
               and free of anyone’s sales target.

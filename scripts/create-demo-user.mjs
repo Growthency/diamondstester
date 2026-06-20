@@ -3,7 +3,7 @@
  * admin portal). Run once after Supabase keys are in .env.local:
  *     node scripts/create-demo-user.mjs
  *
- * Default demo login:  demo@caratiq.com  /  demo123456
+ * Default demo login:  demo@diamondstester.com  /  demo123456
  * Override with env:    DEMO_EMAIL / DEMO_PASSWORD
  */
 import { readFile } from 'node:fs/promises'
@@ -28,7 +28,7 @@ async function main() {
     console.error('✗ Missing NEXT_PUBLIC_SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY in .env.local')
     process.exit(1)
   }
-  const email = process.env.DEMO_EMAIL || 'demo@caratiq.com'
+  const email = process.env.DEMO_EMAIL || 'demo@diamondstester.com'
   const password = process.env.DEMO_PASSWORD || 'demo123456'
   const supabase = createClient(url, key, { auth: { persistSession: false } })
 

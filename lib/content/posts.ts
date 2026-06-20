@@ -59,7 +59,7 @@ Instruments measure exactly how light slows and splits inside the stone. Diamond
 A real diamond can still be lab-grown — chemically identical, but worth far less. Only spectroscopy and fluorescence patterns reliably separate earth-mined from lab-created. If you're insuring or reselling, this is the test that matters.
 
 ## The honest bottom line
-At-home tests are great for ruling out obvious fakes. They are **not** reliable for separating diamond from moissanite, or natural from lab-grown — the two distinctions that actually move value. When money or insurance is on the line, get an instrument test. That's exactly what CaratIQ's photo screen and lab certification are built for.`,
+At-home tests are great for ruling out obvious fakes. They are **not** reliable for separating diamond from moissanite, or natural from lab-grown — the two distinctions that actually move value. When money or insurance is on the line, get an instrument test. That's exactly what Diamonds Tester's photo screen and lab certification are built for.`,
   },
   {
     slug: 'moissanite-vs-diamond',
@@ -163,7 +163,7 @@ You can't do this at home. It takes instruments:
 - **Strain patterns** under cross-polarised light differ between earth-formed and lab-formed crystals.
 
 ## The takeaway
-Neither is "fake." But because the value gap is enormous, knowing which one you hold is essential — for insurance, for resale, and simply for paying the right price. That natural-vs-lab-grown call is the headline result on every CaratIQ lab certificate.`,
+Neither is "fake." But because the value gap is enormous, knowing which one you hold is essential — for insurance, for resale, and simply for paying the right price. That natural-vs-lab-grown call is the headline result on every Diamonds Tester lab certificate.`,
   },
   {
     slug: 'getting-a-diamond-appraised-vs-certified',
@@ -197,6 +197,6 @@ An **appraisal** takes a certified (or examined) stone and assigns a monetary fi
 - **Estate or inheritance?** Certify first to establish what it is, then appraise for probate value.
 
 ## The order that saves money
-Always **certify, then appraise.** An appraisal without an underlying certificate is just an opinion of value on an unverified stone — and that's exactly the gap where over-valuation and outright fakes hide. CaratIQ certificates are built to slot straight into an insurer-ready appraisal.`,
+Always **certify, then appraise.** An appraisal without an underlying certificate is just an opinion of value on an unverified stone — and that's exactly the gap where over-valuation and outright fakes hide. Diamonds Tester certificates are built to slot straight into an insurer-ready appraisal.`,
   },
 ]

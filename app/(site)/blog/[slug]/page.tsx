@@ -27,7 +27,7 @@ export async function generateMetadata({
   params: { slug: string }
 }): Promise<Metadata> {
   const post = await getPostBySlug(params.slug)
-  if (!post) return { title: 'Article not found — CaratIQ Journal' }
+  if (!post) return { title: 'Article not found — Diamonds Tester Journal' }
 
   const url = `${site.url.replace(/\/$/, '')}/blog/${post.slug}`
   const title = post.seo_title || post.title
@@ -214,7 +214,7 @@ export default async function ArticlePage({ params }: { params: { slug: string }
                     <p className="text-sm text-muted-foreground">{post.author_role}</p>
                   )}
                   <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                    Part of the CaratIQ gemology team — combining lab-grade instruments with
+                    Part of the Diamonds Tester gemology team — combining lab-grade instruments with
                     decades of grading experience to give every stone a straight, honest verdict.
                   </p>
                 </div>

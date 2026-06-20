@@ -14,7 +14,7 @@ import { formatDate } from '@/lib/utils'
 import { RemoveSavedButton } from './RemoveSavedButton'
 
 export const metadata: Metadata = {
-  title: 'Saved guides — CaratIQ',
+  title: 'Saved guides — Diamonds Tester',
   robots: { index: false, follow: false },
 }
 

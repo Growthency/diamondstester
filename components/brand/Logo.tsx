@@ -2,7 +2,7 @@ import { cn } from '@/lib/utils'
 import { site } from '@/lib/site'
 
 /**
- * CaratIQ logomark — a brilliant-cut diamond built from facets that catch the
+ * Diamonds Tester logomark — a brilliant-cut diamond built from facets that catch the
  * brand gradient (cyan → indigo → violet). Used standalone or with the wordmark.
  */
 export function LogoMark({ className }: { className?: string }) {
@@ -48,7 +48,16 @@ export function Logo({
       <LogoMark className="h-8 w-8 drop-shadow-[0_2px_8px_hsl(var(--brilliant-indigo)/0.5)]" />
       {withText && (
         <span className={cn('font-display text-xl font-bold tracking-tight', textClassName)}>
-          Carat<span className="text-gradient">IQ</span>
+          {(() => {
+            const parts = site.name.split(' ')
+            const last = parts.pop() ?? ''
+            return (
+              <>
+                {parts.length > 0 && <>{parts.join(' ')} </>}
+                <span className="text-gradient">{last}</span>
+              </>
+            )
+          })()}
         </span>
       )}
     </span>

@@ -4,7 +4,7 @@ import { AdminShell } from './AdminShell'
 import { LoginScreen } from './LoginScreen'
 
 export const metadata: Metadata = {
-  title: 'Admin — CaratIQ',
+  title: 'Admin — Diamonds Tester',
   robots: { index: false, follow: false },
 }
 

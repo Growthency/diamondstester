@@ -44,7 +44,7 @@ export function LoginScreen() {
           <p className="mt-5 font-display text-2xl font-bold tracking-tight text-platinum">
             Admin Console
           </p>
-          <p className="mt-1.5 text-sm text-muted-foreground">Sign in to manage CaratIQ.</p>
+          <p className="mt-1.5 text-sm text-muted-foreground">Sign in to manage Diamonds Tester.</p>
         </div>
 
         <div className="card-luxe rounded-2xl p-7 sm:p-8">
@@ -56,7 +56,7 @@ export function LoginScreen() {
                 name="email"
                 type="email"
                 autoComplete="email"
-                placeholder="you@caratiq.com"
+                placeholder="you@diamondstester.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required

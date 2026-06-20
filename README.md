@@ -1,4 +1,4 @@
-# CaratIQ
+# Diamonds Tester
 
 **Know if your diamond is real.** A premium diamond testing & verification
 platform — photo screening, lab certification and mail-in testing — with a fast,

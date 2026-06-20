@@ -71,7 +71,7 @@ Essentially a pear with a cleft, the heart is a brilliant cut that needs skilled
 - **Love a clean, elegant look?** Emerald or asscher — but pay up for clarity and colour.
 - **Want vintage warmth?** Cushion.
 
-Whatever shape you fall for, the grade on the report should match what your eye and budget expect. A CaratIQ verification confirms the cut and quality are exactly what you are paying for before the ring goes on the finger.`,
+Whatever shape you fall for, the grade on the report should match what your eye and budget expect. A Diamonds Tester verification confirms the cut and quality are exactly what you are paying for before the ring goes on the finger.`,
   },
   {
     slug: 'diamond-certificates-gia-igi-ags',
@@ -124,7 +124,7 @@ This is where money is lost. Watch for:
 - **Grades that look too good for the price:** A "D Flawless" at a bargain price is a red flag for either a tampered report or a swapped stone.
 - **Reports that can't be looked up:** If the number doesn't resolve on the lab's site, the document is worthless.
 
-A report is only as trustworthy as your ability to confirm the paper actually describes the stone in front of you. CaratIQ verification cross-checks the inscription, the report and the physical stone so you know the certificate and the diamond are one and the same.`,
+A report is only as trustworthy as your ability to confirm the paper actually describes the stone in front of you. Diamonds Tester verification cross-checks the inscription, the report and the physical stone so you know the certificate and the diamond are one and the same.`,
   },
   {
     slug: 'how-diamond-prices-are-set',
@@ -177,7 +177,7 @@ Between the wholesale price and the ring in the window sits the retailer's margi
 
 ## The bottom line
 
-A fair price is the wholesale benchmark plus a reasonable, transparent margin — no more. The only way to know you are in that range is to know precisely what the stone is. A CaratIQ verification pins down the grade, so you can judge any quote against what the diamond is genuinely worth.`,
+A fair price is the wholesale benchmark plus a reasonable, transparent margin — no more. The only way to know you are in that range is to know precisely what the stone is. A Diamonds Tester verification pins down the grade, so you can judge any quote against what the diamond is genuinely worth.`,
   },
   {
     slug: 'ethical-and-lab-grown-diamonds',
@@ -233,7 +233,7 @@ Treat the phrase as the start of a conversation, not the end of one. Ask for spe
 - For lab-grown, what is the energy source?
 - For natural, is there a traceability program naming the mine of origin?
 
-A vague "ethical" label means little; a documented origin means a great deal. Whatever path you choose, knowing exactly what you hold — natural or lab-grown, and graded honestly — is the foundation of an ethical purchase. CaratIQ verification confirms a stone's true nature so the story you are told matches the stone you actually own.`,
+A vague "ethical" label means little; a documented origin means a great deal. Whatever path you choose, knowing exactly what you hold — natural or lab-grown, and graded honestly — is the foundation of an ethical purchase. Diamonds Tester verification confirms a stone's true nature so the story you are told matches the stone you actually own.`,
   },
   {
     slug: 'how-to-clean-and-care-for-your-diamond',
@@ -290,7 +290,7 @@ Home care handles the day-to-day, but a jeweller should examine the setting prof
 
 Separately, insure the piece — either as a rider on your home policy or through a dedicated jewellery insurer — and base the coverage on a current appraisal. Re-appraise every few years, because replacement values shift with the market, and keep your grading report and photos somewhere safe as proof of what you own.
 
-If your stone has ever been out of your sight for repair or resizing, it's worth confirming the diamond that came back is the one that went in. A CaratIQ verification matches your stone to its report, so a routine service never becomes a quiet swap.`,
+If your stone has ever been out of your sight for repair or resizing, it's worth confirming the diamond that came back is the one that went in. A Diamonds Tester verification matches your stone to its report, so a routine service never becomes a quiet swap.`,
   },
   {
     slug: 'engagement-ring-buying-guide',
@@ -360,6 +360,6 @@ Wherever you buy, favour sellers with clear return policies and reports you can 
 
 This is the step most buyers skip and later regret. Before money changes hands, confirm three things line up: the physical stone, its laser inscription, and the grading report. Match the report number on the certificate to the inscription on the girdle, and check the report on the lab's official website. A grade is only meaningful if the paper genuinely describes the stone in your hand.
 
-That final check is exactly what CaratIQ is built for — cross-verifying the stone, the inscription and the report so you can say "yes" with complete confidence.`,
+That final check is exactly what Diamonds Tester is built for — cross-verifying the stone, the inscription and the report so you can say "yes" with complete confidence.`,
   },
 ]

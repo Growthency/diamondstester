@@ -3,7 +3,7 @@ import { ResultView } from '@/components/identify/ResultView'
 
 export const metadata: Metadata = {
   title: 'Your Diamond Analysis',
-  description: 'Your instant AI diamond authenticity result from CaratIQ.',
+  description: 'Your instant AI diamond authenticity result from Diamonds Tester.',
   robots: { index: false, follow: false },
 }
 

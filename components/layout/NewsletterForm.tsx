@@ -19,7 +19,7 @@ export function NewsletterForm() {
         body: JSON.stringify({ email }),
       })
       if (!res.ok) throw new Error()
-      toast.success('You’re on the list. Welcome to CaratIQ.')
+      toast.success('You’re on the list. Welcome to Diamonds Tester.')
       setEmail('')
     } catch {
       toast.error('Something went wrong. Please try again.')

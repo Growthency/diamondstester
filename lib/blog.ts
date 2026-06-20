@@ -13,7 +13,7 @@ function normalize(row: any): BlogPost {
     excerpt: row.excerpt ?? '',
     content: row.content ?? '',
     cover_image: row.cover_image ?? null,
-    author: row.author ?? 'CaratIQ Team',
+    author: row.author ?? 'Diamonds Tester Team',
     author_role: row.author_role ?? 'Gemologist',
     category: row.category ?? 'Guides',
     tags: row.tags ?? [],

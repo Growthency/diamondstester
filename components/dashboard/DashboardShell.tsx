@@ -198,7 +198,7 @@ function SidebarContent({
   return (
     <>
       <div className="flex h-16 items-center border-b border-border px-6">
-        <Link href="/dashboard" onClick={onNavigate} aria-label="CaratIQ dashboard">
+        <Link href="/dashboard" onClick={onNavigate} aria-label="Diamonds Tester dashboard">
           <Logo />
         </Link>
       </div>

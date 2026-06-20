@@ -35,7 +35,12 @@ function LoginForm() {
       })
 
       if (signInError || !data?.session) {
-        setError(signInError?.message ?? 'Invalid email or password.')
+        const msg = signInError?.message ?? 'Invalid email or password.'
+        setError(
+          /not confirmed/i.test(msg)
+            ? 'Your email isn’t confirmed yet. Open the confirmation link we emailed you, then sign in.'
+            : msg,
+        )
         return
       }
 
@@ -74,15 +79,7 @@ function LoginForm() {
           </div>
 
           <div className="space-y-2">
-            <div className="flex items-center justify-between">
-              <Label htmlFor="password">Password</Label>
-              <Link
-                href="/forgot-password"
-                className="text-xs font-medium text-muted-foreground transition-colors hover:text-brilliant-cyan"
-              >
-                Forgot password?
-              </Link>
-            </div>
+            <Label htmlFor="password">Password</Label>
             <Input
               id="password"
               name="password"
@@ -118,7 +115,7 @@ function LoginForm() {
         </form>
 
         <p className="mt-6 text-center text-sm text-muted-foreground">
-          New to CaratIQ?{' '}
+          New to Diamonds Tester?{' '}
           <Link
             href="/signup"
             className="font-semibold text-platinum transition-colors hover:text-brilliant-cyan"
@@ -137,7 +134,7 @@ function LoginForm() {
           href="/"
           className="inline-flex items-center gap-1.5 text-xs text-muted-foreground transition-colors hover:text-platinum"
         >
-          <ArrowLeft className="h-3.5 w-3.5" /> Back to caratiq.com
+          <ArrowLeft className="h-3.5 w-3.5" /> Back to diamondstester.com
         </Link>
       </div>
     </div>

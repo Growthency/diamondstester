@@ -6,9 +6,9 @@ import { site, whatsappHref } from '@/lib/site'
 import { ContactForm } from './ContactForm'
 
 export const metadata: Metadata = {
-  title: 'Contact CaratIQ — Talk to a Gemologist',
+  title: 'Contact Diamonds Tester — Talk to a Gemologist',
   description:
-    'Questions about verifying a diamond, mailing in a stone or a certificate? Reach the CaratIQ team by message, email, phone or WhatsApp.',
+    'Questions about verifying a diamond, mailing in a stone or a certificate? Reach the Diamonds Tester team by message, email, phone or WhatsApp.',
   alternates: { canonical: '/contact' },
 }
 
@@ -129,7 +129,7 @@ export default function ContactPage() {
                   </span>
                 </div>
                 <div className="absolute bottom-4 left-5 right-5">
-                  <p className="font-display text-sm font-semibold text-platinum">CaratIQ Studio</p>
+                  <p className="font-display text-sm font-semibold text-platinum">Diamonds Tester Studio</p>
                   <p className="text-xs text-muted-foreground">{site.contact.address}</p>
                 </div>
               </div>

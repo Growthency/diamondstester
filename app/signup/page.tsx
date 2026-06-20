@@ -195,7 +195,7 @@ export default function SignupPage() {
             href="/"
             className="inline-flex items-center gap-1.5 text-xs text-muted-foreground transition-colors hover:text-platinum"
           >
-            <ArrowLeft className="h-3.5 w-3.5" /> Back to caratiq.com
+            <ArrowLeft className="h-3.5 w-3.5" /> Back to diamondstester.com
           </Link>
         </div>
       </div>

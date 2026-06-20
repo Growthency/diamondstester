@@ -130,7 +130,7 @@ export function AdminShell({
       {/* Desktop sidebar */}
       <aside className="fixed inset-y-0 left-0 z-30 hidden w-64 flex-col border-r border-border bg-card/70 backdrop-blur lg:flex">
         <div className="flex h-16 items-center border-b border-border px-5">
-          <Link href="/admin" aria-label="CaratIQ admin home">
+          <Link href="/admin" aria-label="Diamonds Tester admin home">
             <Logo />
           </Link>
         </div>
@@ -155,7 +155,7 @@ export function AdminShell({
           />
           <aside className="absolute inset-y-0 left-0 flex w-72 flex-col border-r border-border bg-card shadow-2xl">
             <div className="flex h-16 items-center justify-between border-b border-border px-5">
-              <Link href="/admin" aria-label="CaratIQ admin home" onClick={() => setMobileOpen(false)}>
+              <Link href="/admin" aria-label="Diamonds Tester admin home" onClick={() => setMobileOpen(false)}>
                 <Logo />
               </Link>
               <button

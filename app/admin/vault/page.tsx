@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { VaultManager } from './VaultManager'
 
 export const metadata: Metadata = {
-  title: 'Vault · CaratIQ Admin',
+  title: 'Vault · Diamonds Tester Admin',
   description: 'Securely store and manage credentials, encrypted at rest.',
 }
 

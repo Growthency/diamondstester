@@ -3,7 +3,7 @@ import { createAdminClient, hasSupabaseConfig } from '@/lib/supabase/server'
 import { AnalyticsView, type AnalyticsData } from './AnalyticsView'
 
 export const metadata: Metadata = {
-  title: 'Analytics · CaratIQ Admin',
+  title: 'Analytics · Diamonds Tester Admin',
   description: 'Traffic overview and page view insights.',
 }
 

@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { MediaManager } from './MediaManager'
 
 export const metadata: Metadata = {
-  title: 'Media Library · CaratIQ Admin',
+  title: 'Media Library · Diamonds Tester Admin',
   description: 'Upload and manage WebP media assets.',
 }
 

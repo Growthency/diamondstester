@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { SettingsForm } from './SettingsForm'
 
 export const metadata: Metadata = {
-  title: 'Settings · CaratIQ Admin',
+  title: 'Settings · Diamonds Tester Admin',
   description: 'Manage site-wide settings, footer, scripts, and theme.',
 }
 

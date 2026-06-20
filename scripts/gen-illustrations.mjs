@@ -3,7 +3,7 @@
  * sourced from anywhere) and writes them as optimized WebP into public/images/.
  * Run:  node scripts/gen-illustrations.mjs
  *
- * Everything is hand-drawn vector art in the CaratIQ palette, so there is zero
+ * Everything is hand-drawn vector art in the Diamonds Tester palette, so there is zero
  * copyright risk and the site stays 100% WebP.
  */
 import { mkdir } from 'node:fs/promises'

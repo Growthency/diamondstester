@@ -4,7 +4,7 @@ import { getUser } from '@/lib/user'
 import { DashboardShell } from '@/components/dashboard/DashboardShell'
 
 export const metadata: Metadata = {
-  title: 'Dashboard — CaratIQ',
+  title: 'Dashboard — Diamonds Tester',
   robots: { index: false, follow: false },
 }
 
