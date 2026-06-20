@@ -36,8 +36,19 @@ export const metadata: Metadata = {
     description: site.description,
   },
   twitter: { card: 'summary_large_image', title: site.name, description: site.description },
-  robots: { index: true, follow: true },
-  icons: { icon: '/favicon.svg' },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  // verification: { google: 'YOUR_GSC_TOKEN' },  // add your Search Console token
+  icons: { icon: '/favicon.svg', apple: '/icon.svg' },
 }
 
 export const viewport: Viewport = {

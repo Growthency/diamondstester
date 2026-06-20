@@ -18,6 +18,15 @@ import {
 import { getAllPosts } from '@/lib/blog'
 import { coverFor } from '@/lib/content/covers'
 import { formatDate } from '@/lib/utils'
+import { JsonLd } from '@/components/seo/JsonLd'
+import { organizationLd, websiteLd, localBusinessLd, pageMeta } from '@/lib/seo'
+
+export const metadata = pageMeta({
+  title: 'Diamonds Tester — Know if your diamond is real',
+  description:
+    'Upload a photo for an instant AI verdict or book expert lab certification. Diamonds Tester checks authenticity, carat, cut and clarity — real diamond vs lab-grown vs moissanite — in minutes.',
+  path: '/',
+})
 
 export default async function HomePage() {
   const allPosts = await getAllPosts()
@@ -26,6 +35,7 @@ export default async function HomePage() {
 
   return (
     <>
+      <JsonLd data={[organizationLd(), websiteLd(), localBusinessLd()]} />
       <Hero />
 
       {/* Instant AI diamond tester — the primary action, immediately under the hero */}
