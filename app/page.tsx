@@ -1,4 +1,3 @@
-export const runtime = 'edge'
 import Link from 'next/link'
 import { ArrowRight, Check, Quote } from 'lucide-react'
 import { Hero } from '@/components/home/Hero'
@@ -22,6 +21,11 @@ import { formatDate } from '@/lib/utils'
 import { JsonLd } from '@/components/seo/JsonLd'
 import { organizationLd, websiteLd, localBusinessLd, pageMeta } from '@/lib/seo'
 import { SiteChrome } from '@/components/layout/SiteChrome'
+
+// Prerender the homepage as a static asset. Cloudflare Pages serves the
+// generated index.html directly, which sidesteps the next-on-pages root-route
+// worker issue. Published guides are read at build time (anon/public read).
+export const dynamic = 'force-static'
 
 export const metadata = pageMeta({
   title: 'Diamonds Tester — Know if your diamond is real',
