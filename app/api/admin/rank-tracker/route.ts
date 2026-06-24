@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server'
 import { readSession } from '@/lib/auth/session'
 import { createAdminClient, hasSupabaseConfig } from '@/lib/supabase/server'
 
-export const runtime = 'nodejs'
+export const runtime = 'edge'
 export const dynamic = 'force-dynamic'
 
 function unauthorized() {

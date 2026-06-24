@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 
+export const runtime = 'edge'
+
 /**
  * OAuth / email-confirmation callback. Supabase redirects here with a `?code`
  * after the user clicks the confirmation (or magic) link. We exchange that code

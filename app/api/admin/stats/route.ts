@@ -3,7 +3,7 @@ import { readSession } from '@/lib/auth/session'
 import { createAdminClient, hasSupabaseConfig } from '@/lib/supabase/server'
 import { getGoogleDashboard, isGoogleConfigured } from '@/lib/google-analytics'
 
-export const runtime = 'nodejs'
+export const runtime = 'edge'
 export const dynamic = 'force-dynamic'
 
 function rangeFor(period: string): { startDate: string; endDate: string; days: number } {

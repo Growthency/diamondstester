@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server'
 import { readSession } from '@/lib/auth/session'
 import { getAllPosts } from '@/lib/blog'
 
-export const runtime = 'nodejs'
+export const runtime = 'edge'
 export const dynamic = 'force-dynamic'
 
 /* ── Static routes audited on every scan (plus every published blog slug) ── */
