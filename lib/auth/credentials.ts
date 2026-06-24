@@ -1,5 +1,4 @@
 import 'server-only'
-import crypto from 'node:crypto'
 
 /**
  * Single-admin credentials, configured via environment variables.
@@ -13,25 +12,35 @@ import crypto from 'node:crypto'
 const DEV_EMAIL = 'hellocatscanner@gmail.com'
 const DEV_PASSWORD = 'Hellocatscanner@786#'
 
+const enc = new TextEncoder()
+
 function timingSafeEqualStr(a: string, b: string): boolean {
-  const ab = Buffer.from(a)
-  const bb = Buffer.from(b)
-  if (ab.length !== bb.length) return false
-  return crypto.timingSafeEqual(ab, bb)
+  if (a.length !== b.length) return false
+  let diff = 0
+  for (let i = 0; i < a.length; i++) {
+    diff |= a.charCodeAt(i) ^ b.charCodeAt(i)
+  }
+  return diff === 0
 }
 
-function sha256Hex(input: string): string {
-  return crypto.createHash('sha256').update(input).digest('hex')
+async function sha256Hex(input: string): Promise<string> {
+  const digest = await crypto.subtle.digest('SHA-256', enc.encode(input))
+  const bytes = new Uint8Array(digest)
+  let hex = ''
+  for (let i = 0; i < bytes.length; i++) {
+    hex += bytes[i].toString(16).padStart(2, '0')
+  }
+  return hex
 }
 
-export function verifyCredentials(email: string, password: string): boolean {
+export async function verifyCredentials(email: string, password: string): Promise<boolean> {
   const expectedEmail = (process.env.ADMIN_EMAIL || DEV_EMAIL).toLowerCase().trim()
   const givenEmail = email.toLowerCase().trim()
   if (!timingSafeEqualStr(givenEmail, expectedEmail)) return false
 
   const hash = process.env.ADMIN_PASSWORD_HASH
   if (hash) {
-    return timingSafeEqualStr(sha256Hex(password), hash.toLowerCase().trim())
+    return timingSafeEqualStr(await sha256Hex(password), hash.toLowerCase().trim())
   }
   const expectedPassword = process.env.ADMIN_PASSWORD || DEV_PASSWORD
   return timingSafeEqualStr(password, expectedPassword)

@@ -1,6 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server'
-import crypto from 'node:crypto'
-import Anthropic from '@anthropic-ai/sdk'
 import { createAdminClient, hasSupabaseConfig } from '@/lib/supabase/server'
 
 export const runtime = 'edge'
@@ -9,6 +7,28 @@ export const maxDuration = 60
 
 const MODEL = process.env.ANTHROPIC_MODEL || 'claude-sonnet-4-6'
 const DAILY_LIMIT = Number(process.env.ANALYZE_DAILY_LIMIT || '15')
+
+// Web Crypto SHA-256 over the joined base64 strings, returned as lowercase hex.
+async function sha256Hex(input: string): Promise<string> {
+  const bytes = new TextEncoder().encode(input)
+  const digest = await crypto.subtle.digest('SHA-256', bytes)
+  const view = new Uint8Array(digest)
+  let hex = ''
+  for (let i = 0; i < view.length; i++) {
+    hex += view[i].toString(16).padStart(2, '0')
+  }
+  return hex
+}
+
+// Decode a base64 string to raw bytes without Buffer (edge-safe).
+function base64ToBytes(base64: string): Uint8Array {
+  const binary = atob(base64)
+  const bytes = new Uint8Array(binary.length)
+  for (let i = 0; i < binary.length; i++) {
+    bytes[i] = binary.charCodeAt(i)
+  }
+  return bytes
+}
 
 const DIAMOND_PROMPT = `You are a master gemologist (GIA Graduate Gemologist) with 25+ years grading diamonds.
 You are examining one or more close-up photos of the SAME stone from different angles.
@@ -91,21 +111,17 @@ export async function POST(request: NextRequest) {
       'unknown'
 
     // The client already sends optimized WebP — just decode each data URL.
-    const webpImages: { base64: string; buffer: Buffer }[] = []
+    const webpImages: { base64: string }[] = []
     for (const raw of images) {
       const parsed = parseDataUrl(raw)
       if (!parsed) continue
-      const buffer = Buffer.from(parsed.base64, 'base64')
-      webpImages.push({ base64: parsed.base64, buffer })
+      webpImages.push({ base64: parsed.base64 })
     }
     if (!webpImages.length) {
       return NextResponse.json({ ok: false, error: 'Could not read those images.' }, { status: 400 })
     }
 
-    const imageHash = crypto
-      .createHash('sha256')
-      .update(webpImages.map((w) => w.base64).join(''))
-      .digest('hex')
+    const imageHash = await sha256Hex(webpImages.map((w) => w.base64).join(''))
 
     const supabase = hasSupabaseConfig() ? createAdminClient() : null
 
@@ -138,25 +154,41 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
-    const message = await anthropic.messages.create({
-      model: MODEL,
-      max_tokens: 1500,
-      messages: [
-        {
-          role: 'user',
-          content: [
-            ...webpImages.map((w) => ({
-              type: 'image' as const,
-              source: { type: 'base64' as const, media_type: 'image/webp' as const, data: w.base64 },
-            })),
-            { type: 'text' as const, text: DIAMOND_PROMPT },
-          ],
-        },
-      ],
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'x-api-key': process.env.ANTHROPIC_API_KEY as string,
+        'anthropic-version': '2023-06-01',
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify({
+        model: MODEL,
+        max_tokens: 1500,
+        messages: [
+          {
+            role: 'user',
+            content: [
+              ...webpImages.map((w) => ({
+                type: 'image',
+                source: { type: 'base64', media_type: 'image/webp', data: w.base64 },
+              })),
+              { type: 'text', text: DIAMOND_PROMPT },
+            ],
+          },
+        ],
+      }),
     })
 
-    const rawText = message.content[0]?.type === 'text' ? message.content[0].text : ''
+    if (!res.ok) {
+      return NextResponse.json(
+        { ok: false, error: 'The analyzer returned an unexpected response. Please try again with clearer photos.' },
+        { status: 502 },
+      )
+    }
+
+    const data = await res.json()
+    const rawText =
+      data?.content?.[0]?.type === 'text' ? data.content[0].text : (data?.content?.[0]?.text ?? '')
     const cleaned = rawText.replace(/^```(?:json)?\s*/i, '').replace(/\s*```\s*$/, '').trim()
     let result: any
     try {
@@ -173,7 +205,7 @@ export async function POST(request: NextRequest) {
     if (supabase) {
       try {
         const path = `analyses/${imageHash.slice(0, 24)}.webp`
-        await supabase.storage.from('media').upload(path, webpImages[0].buffer, {
+        await supabase.storage.from('media').upload(path, base64ToBytes(webpImages[0].base64), {
           contentType: 'image/webp',
           upsert: true,
         })

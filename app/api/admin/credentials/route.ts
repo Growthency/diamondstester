@@ -24,16 +24,18 @@ export async function GET() {
       console.error('[admin/credentials] list failed:', error.message)
       return NextResponse.json([])
     }
-    const rows = (data ?? []).map((r) => ({
-      id: r.id,
-      site_name: r.site_name,
-      site_url: r.site_url,
-      username: r.username,
-      password: safeDecrypt(r.password_encrypted),
-      notes: r.notes,
-      created_at: r.created_at,
-      updated_at: r.updated_at,
-    }))
+    const rows = await Promise.all(
+      (data ?? []).map(async (r) => ({
+        id: r.id,
+        site_name: r.site_name,
+        site_url: r.site_url,
+        username: r.username,
+        password: await safeDecrypt(r.password_encrypted),
+        notes: r.notes,
+        created_at: r.created_at,
+        updated_at: r.updated_at,
+      })),
+    )
     return NextResponse.json(rows)
   } catch (err) {
     console.error('[admin/credentials] unexpected error:', err)
@@ -72,7 +74,7 @@ export async function POST(request: Request) {
         site_name: body.site_name.trim(),
         site_url: body.site_url?.trim() || null,
         username: body.username?.trim() || null,
-        password_encrypted: encryptSecret(body.password ?? ''),
+        password_encrypted: await encryptSecret(body.password ?? ''),
         notes: body.notes?.trim() || null,
       })
       .select()
@@ -121,7 +123,7 @@ export async function PUT(request: Request) {
     if (body.notes !== undefined) update.notes = body.notes?.trim() || null
     // re-encrypt only if a password was supplied (non-undefined)
     if (body.password !== undefined) {
-      update.password_encrypted = encryptSecret(body.password ?? '')
+      update.password_encrypted = await encryptSecret(body.password ?? '')
     }
 
     const { error } = await supabase

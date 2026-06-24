@@ -63,7 +63,7 @@ export async function POST(request: Request) {
     if (hasImage && hasSupabaseConfig()) {
       // The client already sends optimized WebP — store the received bytes as-is.
       const arrayBuffer = await (file as File).arrayBuffer()
-      const input = Buffer.from(arrayBuffer)
+      const input = new Uint8Array(arrayBuffer)
 
       const supabase = createAdminClient()
       const path = `tests/${Date.now()}-${crypto.randomUUID()}.webp`

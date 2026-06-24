@@ -327,7 +327,7 @@ async function runScan(request: Request) {
       url,
       status: res.status,
       title,
-      htmlSize: Buffer.byteLength(html, 'utf8'),
+      htmlSize: new TextEncoder().encode(html).length,
       loadTime,
       score: scorePage(issues),
       issues,

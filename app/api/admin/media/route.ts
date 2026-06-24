@@ -1,4 +1,3 @@
-import crypto from 'node:crypto'
 import { NextResponse } from 'next/server'
 import { readSession } from '@/lib/auth/session'
 import { createAdminClient, hasSupabaseConfig } from '@/lib/supabase/server'
@@ -55,7 +54,7 @@ export async function POST(request: Request) {
 
   try {
     // The client already sends optimized WebP — store the received bytes as-is.
-    const input = Buffer.from(await file.arrayBuffer())
+    const input = new Uint8Array(await file.arrayBuffer())
 
     const supabase = createAdminClient()
     const objectPath = `library/${crypto.randomUUID()}.webp`
