@@ -1,3 +1,4 @@
+export const runtime = 'edge'
 import Link from 'next/link'
 import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react'
 import { getAllPosts, getCategories, getFeaturedPost } from '@/lib/blog'

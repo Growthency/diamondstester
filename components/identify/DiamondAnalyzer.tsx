@@ -64,7 +64,7 @@ function resizeToDataUrl(file: File, max = 1100): Promise<string> {
         canvas.width = w
         canvas.height = h
         canvas.getContext('2d')!.drawImage(img, 0, 0, w, h)
-        resolve(canvas.toDataURL('image/jpeg', 0.85))
+        resolve(canvas.toDataURL('image/webp', 0.85))
       }
       img.src = e.target?.result as string
     }

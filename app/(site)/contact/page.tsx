@@ -1,3 +1,4 @@
+export const runtime = 'edge'
 import { Mail, Phone, MapPin, Clock, MessageCircle } from 'lucide-react'
 import { Reveal } from '@/components/motion/Reveal'
 import { Button } from '@/components/ui/button'

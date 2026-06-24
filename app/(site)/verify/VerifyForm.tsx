@@ -9,6 +9,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
 import { Icon } from '@/components/ui/Icon'
+import { fileToWebp } from '@/lib/image/client-webp'
 
 type Method = 'photo' | 'lab' | 'mail-in'
 
@@ -54,6 +55,11 @@ export function VerifyForm({ defaultMethod }: { defaultMethod?: string }) {
     if (method === 'photo' && !file) {
       toast.error('Add a photo of your stone for a photo verification.')
       return
+    }
+
+    if (file) {
+      const webp = await fileToWebp(file)
+      data.set('image', webp)
     }
 
     setSubmitting(true)

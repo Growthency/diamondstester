@@ -1,3 +1,4 @@
+export const runtime = 'edge'
 import type { Metadata } from 'next'
 import { hasSupabaseConfig } from '@/lib/supabase/server'
 import { ExternalLinksManager } from './ExternalLinksManager'

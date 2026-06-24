@@ -1,9 +1,9 @@
 import { NextResponse } from 'next/server'
 import { z } from 'zod'
 import { createAdminClient, hasSupabaseConfig } from '@/lib/supabase/server'
-import { toWebp, isImageMime } from '@/lib/image/webp'
+import { isImageMime } from '@/lib/image/webp'
 
-export const runtime = 'nodejs'
+export const runtime = 'edge'
 export const dynamic = 'force-dynamic'
 
 const schema = z.object({
@@ -61,15 +61,15 @@ export async function POST(request: Request) {
       (file as File).size > 0
 
     if (hasImage && hasSupabaseConfig()) {
+      // The client already sends optimized WebP — store the received bytes as-is.
       const arrayBuffer = await (file as File).arrayBuffer()
       const input = Buffer.from(arrayBuffer)
-      const webp = await toWebp(input, { maxWidth: 1600, quality: 80 })
 
       const supabase = createAdminClient()
       const path = `tests/${Date.now()}-${crypto.randomUUID()}.webp`
       const { error: uploadError } = await supabase.storage
         .from('media')
-        .upload(path, webp.buffer, {
+        .upload(path, input, {
           contentType: 'image/webp',
           upsert: true,
         })

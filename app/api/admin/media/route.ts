@@ -2,9 +2,9 @@ import crypto from 'node:crypto'
 import { NextResponse } from 'next/server'
 import { readSession } from '@/lib/auth/session'
 import { createAdminClient, hasSupabaseConfig } from '@/lib/supabase/server'
-import { toWebp, isImageMime, toWebpName } from '@/lib/image/webp'
+import { isImageMime, toWebpName } from '@/lib/image/webp'
 
-export const runtime = 'nodejs'
+export const runtime = 'edge'
 export const dynamic = 'force-dynamic'
 
 function unauthorized() {
@@ -54,15 +54,15 @@ export async function POST(request: Request) {
   }
 
   try {
+    // The client already sends optimized WebP — store the received bytes as-is.
     const input = Buffer.from(await file.arrayBuffer())
-    const webp = await toWebp(input, { maxWidth: 1920, quality: 82 })
 
     const supabase = createAdminClient()
     const objectPath = `library/${crypto.randomUUID()}.webp`
 
     const { error: uploadError } = await supabase.storage
       .from('media')
-      .upload(objectPath, webp.buffer, {
+      .upload(objectPath, input, {
         contentType: 'image/webp',
         upsert: false,
       })
@@ -82,9 +82,9 @@ export async function POST(request: Request) {
         filename,
         url: publicUrl,
         alt: '',
-        width: webp.width,
-        height: webp.height,
-        bytes: webp.bytes,
+        width: null,
+        height: null,
+        bytes: input.length,
       })
       .select()
       .single()
@@ -100,9 +100,9 @@ export async function POST(request: Request) {
       id: row?.id,
       url: publicUrl,
       filename,
-      width: webp.width,
-      height: webp.height,
-      bytes: webp.bytes,
+      width: null,
+      height: null,
+      bytes: input.length,
     })
   } catch (err) {
     console.error('[admin/media] unexpected error:', err)

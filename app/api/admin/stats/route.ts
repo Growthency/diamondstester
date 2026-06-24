@@ -7,11 +7,35 @@ export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
 
 function rangeFor(period: string): { startDate: string; endDate: string; days: number } {
-  const days = period === 'today' ? 1 : period === '7d' ? 7 : period === '90d' ? 90 : 30
-  const end = new Date()
-  const start = new Date(end)
-  start.setDate(end.getDate() - (days - 1))
   const fmt = (d: Date) => d.toISOString().slice(0, 10)
+  let end = new Date()
+  let start = new Date(end)
+
+  switch (period) {
+    case 'today':
+      break
+    case '7d':
+      start.setDate(end.getDate() - 6)
+      break
+    case 'this-month':
+      start = new Date(end.getFullYear(), end.getMonth(), 1)
+      break
+    case 'last-month':
+      start = new Date(end.getFullYear(), end.getMonth() - 1, 1)
+      end = new Date(end.getFullYear(), end.getMonth(), 0)
+      break
+    case '365d':
+      start.setDate(end.getDate() - 364)
+      break
+    case 'lifetime':
+      start = new Date('2020-01-01')
+      break
+    case '30d':
+    default:
+      start.setDate(end.getDate() - 29)
+  }
+
+  const days = Math.max(1, Math.round((end.getTime() - start.getTime()) / 86400000) + 1)
   return { startDate: fmt(start), endDate: fmt(end), days }
 }
 
@@ -85,6 +109,7 @@ export async function GET(request: NextRequest) {
       totalScans,
     },
     daily: google?.daily?.length ? google.daily : ownDaily,
+    dailyClicks: google?.dailyClicks ?? [],
     topPages: google?.topPages?.length ? google.topPages : ownTopPages,
     topCountries: google?.topCountries ?? [],
     searchKeywords: google?.searchKeywords ?? [],

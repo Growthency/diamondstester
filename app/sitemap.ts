@@ -1,3 +1,4 @@
+export const runtime = 'edge'
 import type { MetadataRoute } from 'next'
 import { site } from '@/lib/site'
 import { getAllPosts } from '@/lib/blog'

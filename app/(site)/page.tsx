@@ -1,3 +1,4 @@
+export const runtime = 'edge'
 import Link from 'next/link'
 import { ArrowRight, Check, Quote } from 'lucide-react'
 import { Hero } from '@/components/home/Hero'

@@ -12,6 +12,7 @@ import {
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { cn } from '@/lib/utils'
+import { fileToWebp } from '@/lib/image/client-webp'
 
 interface MediaItem {
   id: number | string
@@ -69,8 +70,9 @@ export function MediaManager() {
       let ok = 0
       for (const file of list) {
         try {
+          const webp = await fileToWebp(file)
           const form = new FormData()
-          form.append('file', file)
+          form.append('file', webp)
           const res = await fetch('/api/admin/media', {
             method: 'POST',
             body: form,

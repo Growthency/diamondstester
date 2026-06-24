@@ -1,3 +1,4 @@
+export const runtime = 'edge'
 import type { Metadata } from 'next'
 import { createAdminClient, hasSupabaseConfig } from '@/lib/supabase/server'
 import { AnalyticsView, type AnalyticsData } from './AnalyticsView'

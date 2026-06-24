@@ -1,3 +1,4 @@
+export const runtime = 'edge'
 import { Reveal } from '@/components/motion/Reveal'
 import { pageMeta, breadcrumbLd } from '@/lib/seo'
 import { JsonLd } from '@/components/seo/JsonLd'

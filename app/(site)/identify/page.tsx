@@ -1,3 +1,4 @@
+export const runtime = 'edge'
 import Link from 'next/link'
 import { ArrowRight, Camera, ScanLine, ShieldCheck, Sparkles } from 'lucide-react'
 import { DiamondAnalyzer } from '@/components/identify/DiamondAnalyzer'

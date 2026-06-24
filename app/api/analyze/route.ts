@@ -2,9 +2,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import crypto from 'node:crypto'
 import Anthropic from '@anthropic-ai/sdk'
 import { createAdminClient, hasSupabaseConfig } from '@/lib/supabase/server'
-import { toWebp } from '@/lib/image/webp'
 
-export const runtime = 'nodejs'
+export const runtime = 'edge'
 export const dynamic = 'force-dynamic'
 export const maxDuration = 60
 
@@ -91,14 +90,13 @@ export async function POST(request: NextRequest) {
       request.headers.get('x-real-ip') ||
       'unknown'
 
-    // Convert every upload to optimized WebP (smaller payload to the model + storage).
+    // The client already sends optimized WebP — just decode each data URL.
     const webpImages: { base64: string; buffer: Buffer }[] = []
     for (const raw of images) {
       const parsed = parseDataUrl(raw)
       if (!parsed) continue
-      const buf = Buffer.from(parsed.base64, 'base64')
-      const { buffer } = await toWebp(buf, { maxWidth: 1280, quality: 80 })
-      webpImages.push({ base64: buffer.toString('base64'), buffer })
+      const buffer = Buffer.from(parsed.base64, 'base64')
+      webpImages.push({ base64: parsed.base64, buffer })
     }
     if (!webpImages.length) {
       return NextResponse.json({ ok: false, error: 'Could not read those images.' }, { status: 400 })

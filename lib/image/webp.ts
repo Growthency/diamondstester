@@ -1,6 +1,3 @@
-import 'server-only'
-import sharp from 'sharp'
-
 export interface WebpResult {
   buffer: Buffer
   width: number
@@ -9,34 +6,16 @@ export interface WebpResult {
 }
 
 /**
- * Convert ANY uploaded raster image (jpeg/png/gif/avif/heic/tiff/…) to an
- * optimized WebP. The project mandates webp everywhere — this is the single
- * choke point every admin upload passes through.
+ * The project mandates webp everywhere. WebP conversion now happens in the
+ * browser before upload (see lib/image/client-webp.ts), so on the server this
+ * is a pass-through that does NO conversion — the bytes that arrive are already
+ * optimized WebP.
  */
 export async function toWebp(
   input: Buffer,
-  opts: { maxWidth?: number; quality?: number } = {},
+  _opts: { maxWidth?: number; quality?: number } = {},
 ): Promise<WebpResult> {
-  const { maxWidth = 1920, quality = 82 } = opts
-
-  let pipeline = sharp(input, { failOn: 'none' }).rotate() // respect EXIF orientation
-  const meta = await pipeline.metadata()
-
-  if (meta.width && meta.width > maxWidth) {
-    pipeline = pipeline.resize({ width: maxWidth, withoutEnlargement: true })
-  }
-
-  const buffer = await pipeline
-    .webp({ quality, effort: 5, smartSubsample: true })
-    .toBuffer()
-
-  const out = await sharp(buffer).metadata()
-  return {
-    buffer,
-    width: out.width ?? meta.width ?? 0,
-    height: out.height ?? meta.height ?? 0,
-    bytes: buffer.length,
-  }
+  return { buffer: input, width: 0, height: 0, bytes: input.length }
 }
 
 export function isImageMime(mime: string | null | undefined): boolean {

@@ -1,3 +1,4 @@
+export const runtime = 'edge'
 import { createAdminClient, hasSupabaseConfig } from '@/lib/supabase/server'
 import { seedPosts } from '@/lib/content/posts'
 import type { AdminPost } from './types'

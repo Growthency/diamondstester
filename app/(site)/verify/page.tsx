@@ -1,3 +1,4 @@
+export const runtime = 'edge'
 import { Clock, ShieldCheck, FileCheck2, Lock, Star } from 'lucide-react'
 import { Reveal } from '@/components/motion/Reveal'
 import { Icon } from '@/components/ui/Icon'

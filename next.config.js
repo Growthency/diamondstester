@@ -2,9 +2,6 @@
 const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
-  experimental: {
-    serverComponentsExternalPackages: ['sharp'],
-  },
   images: {
     // WebP / AVIF only — the project mandates webp everywhere.
     formats: ['image/avif', 'image/webp'],

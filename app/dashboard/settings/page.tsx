@@ -1,3 +1,4 @@
+export const runtime = 'edge'
 import type { Metadata } from 'next'
 import { Settings2 } from 'lucide-react'
 import { SettingsForm } from './SettingsForm'
