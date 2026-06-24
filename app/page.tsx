@@ -21,6 +21,7 @@ import { coverFor } from '@/lib/content/covers'
 import { formatDate } from '@/lib/utils'
 import { JsonLd } from '@/components/seo/JsonLd'
 import { organizationLd, websiteLd, localBusinessLd, pageMeta } from '@/lib/seo'
+import { SiteChrome } from '@/components/layout/SiteChrome'
 
 export const metadata = pageMeta({
   title: 'Diamonds Tester — Know if your diamond is real',
@@ -35,7 +36,7 @@ export default async function HomePage() {
   const guides = allPosts.slice(0, 8)
 
   return (
-    <>
+    <SiteChrome>
       <JsonLd data={[organizationLd(), websiteLd(), localBusinessLd()]} />
       <Hero />
 
@@ -466,6 +467,6 @@ export default async function HomePage() {
           </Reveal>
         </div>
       </section>
-    </>
+    </SiteChrome>
   )
 }
