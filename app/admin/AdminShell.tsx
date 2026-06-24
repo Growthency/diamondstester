@@ -6,7 +6,6 @@ import { usePathname } from 'next/navigation'
 import {
   BarChart3,
   FileText,
-  Files,
   Gem,
   Home,
   ImageIcon,
@@ -47,7 +46,6 @@ const NAV: { section: string; links: NavLink[] }[] = [
   {
     section: 'Content',
     links: [
-      { href: '/admin/pages', label: 'Pages', icon: Files },
       { href: '/admin/blog', label: 'Blog Posts', icon: FileText },
       { href: '/admin/homepage', label: 'Homepage', icon: Home },
       { href: '/admin/media', label: 'Media Library', icon: ImageIcon },
