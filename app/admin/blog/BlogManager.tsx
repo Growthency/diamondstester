@@ -1,6 +1,7 @@
 'use client'
 
 import { useMemo, useState } from 'react'
+import { useRouter } from 'next/navigation'
 import {
   CalendarDays,
   Eye,
@@ -16,8 +17,7 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { cn, formatDate } from '@/lib/utils'
-import type { AdminPost, PostInput } from './types'
-import { BlogEditor } from './BlogEditor'
+import type { AdminPost } from './types'
 
 type Filter = 'all' | 'published' | 'draft'
 
@@ -28,11 +28,10 @@ export function BlogManager({
   initialPosts: AdminPost[]
   configured: boolean
 }) {
+  const router = useRouter()
   const [posts, setPosts] = useState<AdminPost[]>(initialPosts)
   const [query, setQuery] = useState('')
   const [filter, setFilter] = useState<Filter>('all')
-  const [editing, setEditing] = useState<AdminPost | null>(null)
-  const [creating, setCreating] = useState(false)
   const [deletingId, setDeletingId] = useState<number | null>(null)
 
   const filtered = useMemo(() => {
@@ -56,58 +55,6 @@ export function BlogManager({
     }),
     [posts],
   )
-
-  async function refresh() {
-    if (!configured) return
-    try {
-      const res = await fetch('/api/admin/blog', { cache: 'no-store' })
-      const json = await res.json()
-      if (res.ok && Array.isArray(json.posts)) {
-        setPosts(json.posts as AdminPost[])
-      }
-    } catch {
-      /* keep optimistic state */
-    }
-  }
-
-  async function handleSave(input: PostInput): Promise<boolean> {
-    if (!configured) {
-      toast.error('Supabase not configured — connect it in .env.local to save posts.')
-      return false
-    }
-
-    const isUpdate = typeof input.id === 'number'
-    const tId = toast.loading(isUpdate ? 'Saving changes…' : 'Creating post…')
-
-    try {
-      const res = await fetch('/api/admin/blog', {
-        method: isUpdate ? 'PUT' : 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(input),
-      })
-      const json = await res.json().catch(() => ({}))
-
-      if (!res.ok) {
-        toast.error(json.error || 'Could not save the post.', { id: tId })
-        return false
-      }
-
-      // Optimistic merge, then reconcile with the server.
-      const saved = json.post as AdminPost
-      setPosts((prev) => {
-        const exists = prev.some((p) => p.id === saved.id)
-        return exists
-          ? prev.map((p) => (p.id === saved.id ? saved : p))
-          : [saved, ...prev]
-      })
-      toast.success(isUpdate ? 'Post updated.' : 'Post created.', { id: tId })
-      void refresh()
-      return true
-    } catch {
-      toast.error('Network error — please try again.', { id: tId })
-      return false
-    }
-  }
 
   async function handleDelete(post: AdminPost) {
     if (!configured) {
@@ -159,7 +106,7 @@ export function BlogManager({
           <h2 className="font-display text-xl font-bold tracking-tight text-platinum">Blog Posts</h2>
           <p className="text-sm text-muted-foreground">Write, edit and publish articles.</p>
         </div>
-        <Button onClick={() => setCreating(true)}>
+        <Button onClick={() => router.push('/admin/blog/new')}>
           <Plus className="h-4 w-4" /> New Post
         </Button>
       </div>
@@ -204,7 +151,7 @@ export function BlogManager({
               : 'Create your first post to get started.'}
           </p>
           {!query && filter === 'all' && (
-            <Button className="mt-5" onClick={() => setCreating(true)}>
+            <Button className="mt-5" onClick={() => router.push('/admin/blog/new')}>
               <Plus className="h-4 w-4" /> New Post
             </Button>
           )}
@@ -260,7 +207,7 @@ export function BlogManager({
                   <Button
                     size="sm"
                     variant="outline"
-                    onClick={() => setEditing(post)}
+                    onClick={() => router.push(`/admin/blog/edit?id=${post.id}`)}
                     aria-label={`Edit ${post.title}`}
                   >
                     <Pencil className="h-3.5 w-3.5" />
@@ -282,18 +229,6 @@ export function BlogManager({
             ))}
           </ul>
         </div>
-      )}
-
-      {/* Editor (create or edit) */}
-      {(creating || editing) && (
-        <BlogEditor
-          post={editing}
-          onClose={() => {
-            setEditing(null)
-            setCreating(false)
-          }}
-          onSave={handleSave}
-        />
       )}
     </div>
   )

@@ -18,7 +18,8 @@ create table if not exists public.blog_posts (
   slug          text unique not null,
   title         text not null,
   excerpt       text,
-  content       text not null default '',          -- markdown
+  content       text not null default '',          -- markdown or html (see content_format)
+  content_format text not null default 'markdown',  -- 'html' | 'markdown'
   cover_image   text,                               -- webp url
   author        text not null default 'Diamonds Tester Team',
   author_role   text default 'Gemologist',
@@ -28,6 +29,11 @@ create table if not exists public.blog_posts (
   featured      boolean not null default false,
   seo_title     text,
   seo_description text,
+  layout        text not null default 'with-sidebar', -- 'with-sidebar' | 'full-page'
+  difficulty    text default 'Beginner',            -- Beginner | Intermediate | Expert
+  topic_focus   text default 'Natural',             -- Natural | Lab-grown | Buying | Care | 4Cs
+  custom_css    text,                               -- per-page css, injected after global css
+  custom_schema text,                               -- per-page json-ld, replaces default schema
   read_minutes  int default 5,
   views         int not null default 0,
   published_at  timestamptz,

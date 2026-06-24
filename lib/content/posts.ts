@@ -1,12 +1,23 @@
 import type { BlogPost } from '@/lib/types'
 
 /**
+ * Bundled seed posts are plain markdown articles; the rendering/SEO fields
+ * (content_format, layout, custom_css, custom_schema, difficulty, topic_focus)
+ * are filled in with defaults when they're loaded (see lib/blog.ts), so the
+ * authored data here stays focused on the article itself.
+ */
+export type SeedPost = Omit<
+  BlogPost,
+  'content_format' | 'layout' | 'custom_css' | 'custom_schema' | 'difficulty' | 'topic_focus'
+>
+
+/**
  * Seed blog content — full, real articles (no placeholders). These render when
  * Supabase isn't configured yet and are also the rows to import into the
  * `blog_posts` table (see scripts/seed-supabase.mjs). Several are marked
  * featured/published so the blog ships looking complete.
  */
-export const seedPosts: BlogPost[] = [
+export const seedPosts: SeedPost[] = [
   {
     slug: 'how-to-tell-if-a-diamond-is-real',
     title: 'How to Tell If a Diamond Is Real: 9 Tests You Can Trust',

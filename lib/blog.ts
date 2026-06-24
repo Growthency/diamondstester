@@ -1,10 +1,24 @@
 import { createClient, hasSupabaseConfig } from '@/lib/supabase/server'
-import { seedPosts } from '@/lib/content/posts'
+import { seedPosts, type SeedPost } from '@/lib/content/posts'
 import { extraPosts } from '@/lib/content/posts-extra'
 import type { BlogPost } from '@/lib/types'
 import { readingTime } from '@/lib/utils'
 
-const allSeed: BlogPost[] = [...seedPosts, ...extraPosts]
+// Bundled seed posts are authored as markdown with the standard sidebar layout;
+// fill in the rendering fields the public page now reads so they match DB rows.
+function fromSeed(p: SeedPost): BlogPost {
+  return {
+    ...p,
+    content_format: 'markdown',
+    layout: 'with-sidebar',
+    custom_css: null,
+    custom_schema: null,
+    difficulty: 'Beginner',
+    topic_focus: 'Natural',
+  }
+}
+
+const allSeed: BlogPost[] = [...seedPosts, ...extraPosts].map(fromSeed)
 
 function normalize(row: any): BlogPost {
   return {
@@ -12,6 +26,7 @@ function normalize(row: any): BlogPost {
     title: row.title,
     excerpt: row.excerpt ?? '',
     content: row.content ?? '',
+    content_format: row.content_format === 'html' ? 'html' : 'markdown',
     cover_image: row.cover_image ?? null,
     author: row.author ?? 'Diamonds Tester Team',
     author_role: row.author_role ?? 'Gemologist',
@@ -21,6 +36,11 @@ function normalize(row: any): BlogPost {
     featured: !!row.featured,
     seo_title: row.seo_title ?? null,
     seo_description: row.seo_description ?? null,
+    layout: row.layout === 'full-page' ? 'full-page' : 'with-sidebar',
+    difficulty: row.difficulty ?? 'Beginner',
+    topic_focus: row.topic_focus ?? 'Natural',
+    custom_css: row.custom_css ?? null,
+    custom_schema: row.custom_schema ?? null,
     read_minutes: row.read_minutes ?? readingTime(row.content ?? ''),
     views: row.views ?? 0,
     published_at: row.published_at ?? new Date().toISOString(),

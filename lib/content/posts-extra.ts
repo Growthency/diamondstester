@@ -1,11 +1,11 @@
-import type { BlogPost } from '@/lib/types'
+import type { SeedPost } from '@/lib/content/posts'
 
 /**
  * Additional seed blog content — full, real articles (no placeholders). These
  * extend the core set in posts.ts and follow the same shape so they can render
  * without Supabase and import cleanly into the `blog_posts` table.
  */
-export const extraPosts: BlogPost[] = [
+export const extraPosts: SeedPost[] = [
   {
     slug: 'diamond-shapes-and-cuts-explained',
     title: 'Diamond Shapes and Cuts Explained: A Guide to All 10 Popular Cuts',

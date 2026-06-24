@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { ArrowRight, ChevronRight } from 'lucide-react'
 import { getAllPosts, getPostBySlug, getRelatedPosts } from '@/lib/blog'
-import { renderMarkdown, extractHeadings } from '@/lib/markdown'
+import { renderPostContent, extractHeadings } from '@/lib/markdown'
 import { pageMeta, articleLd, breadcrumbLd } from '@/lib/seo'
 import { JsonLd } from '@/components/seo/JsonLd'
 import { formatDate } from '@/lib/utils'
@@ -13,10 +13,26 @@ import { Button } from '@/components/ui/button'
 import { Icon } from '@/components/ui/Icon'
 import { Reveal } from '@/components/motion/Reveal'
 import { ArticleBody } from '@/components/blog/ArticleBody'
+import { ArticleSidebar } from '@/components/blog/ArticleSidebar'
 import { TableOfContents } from '@/components/blog/TableOfContents'
 import { ShareRow } from '@/components/blog/ShareRow'
 import { SaveArticleButton } from '@/components/blog/SaveArticleButton'
 import { RelatedPosts } from '@/components/blog/RelatedPosts'
+
+/** A non-empty custom JSON-LD string that parses cleanly fully replaces the
+ * default article/breadcrumb structured data. Returns the raw string to emit
+ * verbatim, or null to fall back to the default JSON-LD. */
+function validCustomSchema(raw: string | null | undefined): string | null {
+  if (!raw) return null
+  const trimmed = raw.trim()
+  if (!trimmed) return null
+  try {
+    JSON.parse(trimmed)
+    return trimmed
+  } catch {
+    return null
+  }
+}
 
 export async function generateStaticParams() {
   const posts = await getAllPosts()
@@ -45,12 +61,18 @@ export default async function ArticlePage({ params }: { params: { slug: string }
   const post = await getPostBySlug(params.slug)
   if (!post) notFound()
 
-  const [related] = await Promise.all([
+  const withSidebar = post.layout !== 'full-page'
+
+  const [related, sidebarPosts] = await Promise.all([
     getRelatedPosts(post.slug, post.category, 3),
+    // The sidebar shows up to four more posts from the same category.
+    withSidebar ? getRelatedPosts(post.slug, post.category, 4) : Promise.resolve([]),
   ])
 
-  const headings = extractHeadings(post.content)
-  const html = renderMarkdown(post.content)
+  const headings = extractHeadings(post.content, post.content_format)
+  const html = renderPostContent(post.content, post.content_format)
+  const customSchema = validCustomSchema(post.custom_schema)
+  const customCss = post.custom_css?.trim() ? post.custom_css : null
   const authorInitials = post.author
     .split(' ')
     .map((n) => n[0])
@@ -59,16 +81,24 @@ export default async function ArticlePage({ params }: { params: { slug: string }
 
   return (
     <>
-      <JsonLd
-        data={[
-          articleLd(post),
-          breadcrumbLd([
-            { name: 'Home', path: '/' },
-            { name: 'Blog', path: '/blog' },
-            { name: post.title, path: `/blog/${post.slug}` },
-          ]),
-        ]}
-      />
+      {customSchema ? (
+        // A valid author-supplied schema fully replaces the default JSON-LD.
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: customSchema }}
+        />
+      ) : (
+        <JsonLd
+          data={[
+            articleLd(post),
+            breadcrumbLd([
+              { name: 'Home', path: '/' },
+              { name: 'Blog', path: '/blog' },
+              { name: post.title, path: `/blog/${post.slug}` },
+            ]),
+          ]}
+        />
+      )}
 
       {/* Header */}
       <section className="section pt-32 pb-0">
@@ -141,7 +171,13 @@ export default async function ArticlePage({ params }: { params: { slug: string }
       {/* Body */}
       <section className="section pt-14">
         <div className="container-wide">
-          <div className="grid gap-12 lg:grid-cols-[1fr_minmax(0,42rem)_1fr]">
+          <div
+            className={
+              withSidebar
+                ? 'grid gap-12 lg:grid-cols-[minmax(0,16rem)_minmax(0,42rem)_minmax(0,18rem)]'
+                : 'grid gap-12 lg:grid-cols-[1fr_minmax(0,42rem)_1fr]'
+            }
+          >
             {/* Left: sticky TOC (desktop only) */}
             <aside className="order-2 lg:order-1">
               <TableOfContents headings={headings} />
@@ -150,6 +186,11 @@ export default async function ArticlePage({ params }: { params: { slug: string }
             {/* Center: article */}
             <article className="order-1 min-w-0 lg:order-2">
               <ArticleBody html={html} />
+
+              {/* Author-supplied CSS, scoped after the body so its rules win. */}
+              {customCss && (
+                <style dangerouslySetInnerHTML={{ __html: customCss }} />
+              )}
 
               {/* Mid/end CTA */}
               <div className="card-luxe relative mt-12 overflow-hidden rounded-2xl p-7 sm:p-8">
@@ -219,8 +260,15 @@ export default async function ArticlePage({ params }: { params: { slug: string }
               </div>
             </article>
 
-            {/* Right spacer keeps the article centred between the two outer columns. */}
-            <div className="hidden lg:block lg:order-3" aria-hidden />
+            {/* Right column: related-in-category rail for with-sidebar layout;
+                a plain spacer (keeps the article centred) for full-page. */}
+            {withSidebar ? (
+              <aside className="order-3 hidden lg:block lg:order-3">
+                <ArticleSidebar posts={sidebarPosts} />
+              </aside>
+            ) : (
+              <div className="hidden lg:block lg:order-3" aria-hidden />
+            )}
           </div>
         </div>
       </section>
