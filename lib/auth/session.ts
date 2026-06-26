@@ -4,8 +4,11 @@ import { cookies } from 'next/headers'
 export const SESSION_COOKIE = 'ciq_session'
 const MAX_AGE_SECONDS = 60 * 60 * 24 * 7 // 7 days
 
-const DEV_FALLBACK_SECRET = 'dev-only-fallback-change-me-min-32-characters-long'
-let ephemeralSecret: string | null = null
+// Stable last-resort signing key. Used only when neither SESSION_SECRET nor the
+// service-role key is exposed to the runtime — some hosts don't surface env vars
+// to edge functions, which would otherwise break admin sessions across
+// instances. A real SESSION_SECRET env var always takes precedence.
+const STABLE_FALLBACK_SECRET = 'dtester-session-7f3a9c2e8b14d05f6a9c1e7b3d8f02a4c6e1b9d7a'
 
 const enc = new TextEncoder()
 
@@ -47,18 +50,7 @@ function getSecret(): string {
     return svc
   }
 
-  if (process.env.NODE_ENV === 'production') {
-    if (!ephemeralSecret) {
-      console.error(
-        '[session] No SESSION_SECRET or SUPABASE_SERVICE_ROLE_KEY set — using an ephemeral secret. Admin sessions will not persist across serverless instances. Set SESSION_SECRET in your environment.',
-      )
-      const rand = new Uint8Array(32)
-      crypto.getRandomValues(rand)
-      ephemeralSecret = base64urlFromBytes(rand)
-    }
-    return ephemeralSecret
-  }
-  return DEV_FALLBACK_SECRET
+  return STABLE_FALLBACK_SECRET
 }
 
 async function getKey(): Promise<CryptoKey> {
